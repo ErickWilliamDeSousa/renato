@@ -12,3 +12,6 @@ __pycache__/
 *.pyc
 .venv/
 .pytest_cache/
+
+# ferramenta local de push (nao e conteudo do projeto)
+push_uma_vez.py
