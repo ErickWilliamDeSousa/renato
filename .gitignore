@@ -1,0 +1,14 @@
+# segredos e ambiente — NUNCA no git
+.env
+.secrets/
+*.key
+
+# acervo local de memória (o acervo é de quem constrói o seu)
+*.db
+*.db-journal
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
