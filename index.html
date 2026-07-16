@@ -23,7 +23,7 @@
     --sans:"Inter","Segoe UI",system-ui,sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth; scroll-padding-top:84px}
   body{
     background:var(--bg); color:var(--ink); font-family:var(--sans);
     line-height:1.6; overflow-x:hidden; -webkit-font-smoothing:antialiased;
@@ -46,7 +46,8 @@
 
   /* layout ---------------------------------------------------------- */
   .wrap{max-width:1080px; margin:0 auto; padding:0 24px}
-  section{padding:96px 0; position:relative}
+  section{padding:88px 0; position:relative}
+  section[id]{scroll-margin-top:84px}
   .kick{font-family:var(--mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase;
     color:var(--acc); font-weight:700}
   h2{font-size:clamp(28px,4.5vw,44px); font-weight:800; letter-spacing:-.02em; line-height:1.08;
@@ -88,18 +89,18 @@
     vertical-align:-2px; animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
 
-  .wordmark{font-size:clamp(56px,13vw,132px); font-weight:800; letter-spacing:-.045em;
-    line-height:.9; margin-top:40px; opacity:0; transform:translateY(20px)}
+  .wordmark{font-size:clamp(52px,11vw,104px); font-weight:800; letter-spacing:-.045em;
+    line-height:.9; margin-top:26px; opacity:0; transform:translateY(20px)}
   .wordmark.in{animation:fadeUp .7s forwards}
   .wordmark .dot{color:var(--acc); text-shadow:0 0 40px var(--acc-glow)}
-  .tag{font-size:clamp(19px,3.2vw,30px); font-weight:600; line-height:1.25; margin-top:20px;
+  .tag{font-size:clamp(19px,3vw,28px); font-weight:600; line-height:1.25; margin-top:16px;
     max-width:20ch; opacity:0; transform:translateY(16px)}
   .tag.in{animation:fadeUp .7s .12s forwards}
   .tag b{color:var(--acc)}
-  .heroSub{color:var(--muted); margin-top:18px; max-width:56ch; font-size:16px;
+  .heroSub{color:var(--muted); margin-top:14px; max-width:56ch; font-size:16px;
     opacity:0; transform:translateY(12px)}
   .heroSub.in{animation:fadeUp .7s .24s forwards}
-  .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:34px;
+  .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px;
     opacity:0; transform:translateY(12px)}
   .cta.in{animation:fadeUp .7s .36s forwards}
   .btn{font-family:var(--sans); font-size:15px; font-weight:600; text-decoration:none;
@@ -109,9 +110,12 @@
   .btn-1:hover{transform:translateY(-2px); box-shadow:0 14px 36px -8px var(--acc-glow)}
   .btn-2{background:transparent; color:var(--ink); border-color:var(--border)}
   .btn-2:hover{border-color:var(--acc); box-shadow:0 0 0 3px var(--acc-glow)}
-  .scrollcue{position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
+  .scrollcue{position:fixed; bottom:18px; left:50%; transform:translateX(-50%); z-index:40;
     font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--faint);
-    text-transform:uppercase; opacity:0; animation:fadeIn 1s 1.4s forwards}
+    text-transform:uppercase; opacity:0; animation:fadeIn 1s 1.4s forwards;
+    transition:opacity .4s; pointer-events:none}
+  .scrollcue.gone{opacity:0!important; animation:none}
+  @media(max-height:720px){.scrollcue{display:none}}
   .scrollcue::after{content:""; display:block; width:1px; height:26px; margin:8px auto 0;
     background:linear-gradient(var(--faint),transparent); animation:cue 1.8s ease-in-out infinite}
   @keyframes cue{0%,100%{transform:scaleY(.4);opacity:.4}50%{transform:scaleY(1);opacity:1}}
@@ -141,11 +145,12 @@
   .ladderEnds .r{color:var(--acc)}
 
   /* arquitetura ----------------------------------------------------- */
-  .arch{display:grid; grid-template-columns:1fr auto 1.2fr auto 1fr; gap:14px; align-items:stretch;
-    margin-top:40px}
+  .arch{display:grid; grid-template-columns:1fr auto 1.2fr auto 1fr; gap:14px; align-items:center;
+    align-content:start; margin-top:40px}
   @media(max-width:760px){.arch{grid-template-columns:1fr; gap:10px}.arch .arr{transform:rotate(90deg); justify-self:center}}
   .abox{background:var(--panel); border:1px solid var(--border); border-radius:12px;
-    padding:20px 18px; text-align:center}
+    padding:20px 18px; text-align:center; min-height:120px;
+    display:flex; flex-direction:column; justify-content:center}
   .abox.hero{background:linear-gradient(180deg,#12271e,#0e1a15); border-color:var(--acc-dk);
     box-shadow:0 0 0 1px var(--acc-dk), 0 24px 60px -30px var(--acc-glow)}
   .abox .at{font-weight:700; font-size:16px}
@@ -394,9 +399,13 @@
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-  // topbar solidifica no scroll
+  // topbar solidifica no scroll · scrollcue some
   var top = document.getElementById('top');
-  addEventListener('scroll', function(){ top.classList.toggle('solid', scrollY>40); }, {passive:true});
+  var cue = document.querySelector('.scrollcue');
+  addEventListener('scroll', function(){
+    top.classList.toggle('solid', scrollY>40);
+    if(cue) cue.classList.toggle('gone', scrollY>60);
+  }, {passive:true});
 
   // boot do terminal
   var boot = document.getElementById('boot');
