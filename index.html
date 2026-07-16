@@ -45,8 +45,8 @@
   @keyframes drift{to{background-position:64px 64px,64px 64px}}
 
   /* layout ---------------------------------------------------------- */
-  .wrap{max-width:1080px; margin:0 auto; padding:0 24px}
-  section{padding:88px 0; position:relative}
+  .wrap{max-width:1080px; margin:0 auto; padding-left:24px; padding-right:24px}
+  section{padding-top:92px; padding-bottom:92px; position:relative}
   section[id]{scroll-margin-top:84px}
   .kick{font-family:var(--mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase;
     color:var(--acc); font-weight:700}
@@ -149,8 +149,8 @@
     align-content:start; margin-top:40px}
   @media(max-width:760px){.arch{grid-template-columns:1fr; gap:10px}.arch .arr{transform:rotate(90deg); justify-self:center}}
   .abox{background:var(--panel); border:1px solid var(--border); border-radius:12px;
-    padding:20px 18px; text-align:center; min-height:120px;
-    display:flex; flex-direction:column; justify-content:center}
+    padding:22px 18px; text-align:center; min-height:152px;
+    display:flex; flex-direction:column; justify-content:center; gap:2px}
   .abox.hero{background:linear-gradient(180deg,#12271e,#0e1a15); border-color:var(--acc-dk);
     box-shadow:0 0 0 1px var(--acc-dk), 0 24px 60px -30px var(--acc-glow)}
   .abox .at{font-weight:700; font-size:16px}
