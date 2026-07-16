@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -31,29 +31,33 @@
   ::selection{background:var(--acc-glow); color:#fff}
 
   /* fundo vivo ------------------------------------------------------ */
-  .bgfx{position:fixed; inset:0; z-index:-2; pointer-events:none;
+  .bgfx{position:fixed; inset:0; z-index:-3; pointer-events:none;
     background:
       radial-gradient(60vw 45vh at 78% -8%, rgba(63,214,143,.10), transparent 60%),
       radial-gradient(50vw 40vh at 12% 108%, rgba(245,184,76,.06), transparent 60%),
       var(--bg);}
-  .grid{position:fixed; inset:-2px; z-index:-1; pointer-events:none; opacity:.5;
+  #fx{position:fixed; inset:0; z-index:-2; pointer-events:none}
+  .grid{position:fixed; inset:-2px; z-index:-1; pointer-events:none; opacity:.42;
     background-image:linear-gradient(var(--border2) 1px,transparent 1px),
                      linear-gradient(90deg,var(--border2) 1px,transparent 1px);
-    background-size:64px 64px; mask-image:radial-gradient(100vw 100vh at 50% 0%,#000,transparent 75%);
-    -webkit-mask-image:radial-gradient(100vw 100vh at 50% 0%,#000,transparent 75%);
-    animation:drift 40s linear infinite;}
-  @keyframes drift{to{background-position:64px 64px,64px 64px}}
+    background-size:64px 64px; mask-image:radial-gradient(100vw 100vh at 50% 0%,#000,transparent 78%);
+    -webkit-mask-image:radial-gradient(100vw 100vh at 50% 0%,#000,transparent 78%);}
+
+  /* barra de progresso ---------------------------------------------- */
+  #prog{position:fixed; top:0; left:0; height:2px; width:0; z-index:60;
+    background:linear-gradient(90deg,var(--acc),#7FE7BA);
+    box-shadow:0 0 12px var(--acc-glow)}
 
   /* layout ---------------------------------------------------------- */
   .wrap{max-width:1080px; margin:0 auto; padding-left:24px; padding-right:24px}
-  section{padding-top:92px; padding-bottom:92px; position:relative}
+  section{padding-top:96px; padding-bottom:96px; position:relative}
   section[id]{scroll-margin-top:84px}
   .kick{font-family:var(--mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase;
     color:var(--acc); font-weight:700}
   h2{font-size:clamp(28px,4.5vw,44px); font-weight:800; letter-spacing:-.02em; line-height:1.08;
     margin:14px 0 18px; text-wrap:balance}
   h2 em{font-style:normal; color:var(--acc)}
-  .lead{font-size:clamp(16px,2.2vw,19px); color:var(--muted); max-width:60ch}
+  .lead{font-size:clamp(16px,2.2vw,19px); color:var(--muted); max-width:62ch}
   .lead b{color:var(--ink); font-weight:600}
 
   /* topbar ---------------------------------------------------------- */
@@ -63,21 +67,24 @@
   .top.solid{background:#0B0F14e8; border-bottom:1px solid var(--border2)}
   .brand{font-family:var(--mono); font-weight:700; font-size:16px; letter-spacing:.04em}
   .brand .dot{color:var(--acc)}
-  .toplinks{display:flex; gap:24px; align-items:center; font-size:13px}
+  .toplinks{display:flex; gap:24px; align-items:center}
   .toplinks a{color:var(--muted); text-decoration:none; transition:color .2s;
     text-transform:uppercase; letter-spacing:.1em; font-weight:600; font-size:12px}
   .toplinks a:hover{color:var(--ink)}
-  .toplinks .gh{color:var(--ink); font-family:var(--mono); font-size:13px;
+  .toplinks .gh{color:var(--ink); font-family:var(--mono);
     border:1px solid var(--border); padding:7px 13px; border-radius:8px; transition:.2s}
   .toplinks .gh:hover{border-color:var(--acc); box-shadow:0 0 0 3px var(--acc-glow)}
-  @media(max-width:640px){.toplinks a:not(.gh){display:none}}
+  @media(max-width:720px){.toplinks a:not(.gh){display:none}}
 
   /* hero ------------------------------------------------------------ */
   .hero{min-height:100vh; display:flex; flex-direction:column; justify-content:center;
-    padding-top:80px; padding-bottom:60px}
+    padding-top:88px; padding-bottom:60px}
   .term{background:var(--panel2); border:1px solid var(--border); border-radius:12px;
     overflow:hidden; box-shadow:0 30px 80px -30px #000, 0 0 0 1px #ffffff08 inset;
-    max-width:640px; opacity:0; transform:translateY(16px); animation:fadeUp .6s .1s forwards}
+    max-width:640px; opacity:0; transform:translateY(16px); animation:fadeUp .6s .1s forwards;
+    position:relative}
+  .term::after{content:""; position:absolute; inset:0; pointer-events:none; opacity:.05;
+    background:repeating-linear-gradient(0deg,transparent 0 2px,#fff 2px 3px)}
   .term .bar{display:flex; align-items:center; gap:8px; padding:11px 14px;
     background:#0C1116; border-bottom:1px solid var(--border2)}
   .term .bar i{width:11px; height:11px; border-radius:50%; display:block}
@@ -90,25 +97,27 @@
     vertical-align:-2px; animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
 
-  .wordmark{font-size:clamp(52px,11vw,104px); font-weight:800; letter-spacing:-.045em;
-    line-height:.9; margin-top:26px; opacity:0; transform:translateY(20px)}
+  .wordmark{font-family:var(--mono); font-size:clamp(48px,10vw,96px); font-weight:700;
+    letter-spacing:-.02em; line-height:.95; margin-top:26px; opacity:0; transform:translateY(20px)}
   .wordmark.in{animation:fadeUp .7s forwards}
   .wordmark .dot{color:var(--acc); text-shadow:0 0 40px var(--acc-glow)}
   .tag{font-size:clamp(19px,3vw,28px); font-weight:600; line-height:1.25; margin-top:16px;
-    max-width:20ch; opacity:0; transform:translateY(16px)}
+    max-width:22ch; opacity:0; transform:translateY(16px)}
   .tag.in{animation:fadeUp .7s .12s forwards}
   .tag b{color:var(--acc)}
   .heroSub{color:var(--muted); margin-top:14px; max-width:56ch; font-size:16px;
     opacity:0; transform:translateY(12px)}
   .heroSub.in{animation:fadeUp .7s .24s forwards}
+  .heroSub b{color:var(--ink); font-weight:600}
   .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px;
     opacity:0; transform:translateY(12px)}
   .cta.in{animation:fadeUp .7s .36s forwards}
   .btn{font-family:var(--sans); font-size:15px; font-weight:600; text-decoration:none;
     padding:13px 22px; border-radius:10px; display:inline-flex; align-items:center; gap:9px;
-    transition:.22s; cursor:pointer; border:1px solid transparent}
+    transition:box-shadow .22s, border-color .22s; cursor:pointer; border:1px solid transparent;
+    will-change:transform}
   .btn-1{background:var(--acc); color:#08110C; box-shadow:0 8px 30px -8px var(--acc-glow)}
-  .btn-1:hover{transform:translateY(-2px); box-shadow:0 14px 36px -8px var(--acc-glow)}
+  .btn-1:hover{box-shadow:0 14px 40px -8px var(--acc-glow)}
   .btn-2{background:transparent; color:var(--ink); border-color:var(--border)}
   .btn-2:hover{border-color:var(--acc); box-shadow:0 0 0 3px var(--acc-glow)}
   .scrollcue{position:fixed; bottom:18px; left:50%; transform:translateX(-50%); z-index:40;
@@ -116,10 +125,10 @@
     text-transform:uppercase; opacity:0; animation:fadeIn 1s 1.4s forwards;
     transition:opacity .4s; pointer-events:none}
   .scrollcue.gone{opacity:0!important; animation:none}
-  @media(max-height:720px){.scrollcue{display:none}}
   .scrollcue::after{content:""; display:block; width:1px; height:26px; margin:8px auto 0;
     background:linear-gradient(var(--faint),transparent); animation:cue 1.8s ease-in-out infinite}
   @keyframes cue{0%,100%{transform:scaleY(.4);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+  @media(max-height:720px){.scrollcue{display:none}}
 
   /* reveal ---------------------------------------------------------- */
   .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
@@ -127,13 +136,24 @@
   .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}
   .reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
 
+  /* holofote nos cards ---------------------------------------------- */
+  .glow{position:relative}
+  .glow::before{content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%), rgba(63,214,143,.10), transparent 65%);
+    opacity:0; transition:opacity .3s}
+  .glow:hover::before{opacity:1}
+
   /* escada ---------------------------------------------------------- */
   .ladder{display:flex; align-items:flex-end; gap:10px; margin-top:44px; flex-wrap:wrap}
   .rung{flex:1; min-width:150px; background:var(--panel); border:1px solid var(--border);
     border-radius:10px; padding:18px 16px; position:relative; opacity:.4;
-    transform:translateY(8px); transition:.5s}
+    transform:translateY(8px); transition:.5s; overflow:hidden}
   .rung.lit{opacity:1; transform:none; border-color:var(--acc-dk);
     box-shadow:0 0 0 1px var(--acc-dk), 0 16px 40px -20px var(--acc-glow)}
+  .rung.lit::after{content:""; position:absolute; top:0; bottom:0; width:44%;
+    background:linear-gradient(105deg,transparent,rgba(63,214,143,.08),transparent);
+    animation:sweep 5.5s linear infinite; animation-delay:var(--sw,0s)}
+  @keyframes sweep{0%{left:-50%}60%,100%{left:110%}}
   .rung:nth-child(1){min-height:96px}.rung:nth-child(2){min-height:120px}
   .rung:nth-child(3){min-height:148px}.rung:nth-child(4){min-height:176px}
   .rung:nth-child(5){min-height:206px; background:linear-gradient(180deg,#12271e,#0f1c17)}
@@ -157,7 +177,12 @@
   .abox .at{font-weight:700; font-size:16px}
   .abox .ad{font-size:12.5px; color:var(--muted); margin-top:6px; line-height:1.5}
   .abox .al{font-family:var(--mono); font-size:11px; color:var(--amber); margin-top:9px; font-weight:700}
-  .arr{display:flex; align-items:center; justify-content:center; color:var(--faint); font-size:22px}
+  .arr{display:flex; align-items:center; justify-content:center; color:var(--faint); font-size:22px;
+    position:relative; min-width:34px; height:40px}
+  .arr .pk{position:absolute; top:50%; left:0; width:5px; height:5px; border-radius:50%;
+    background:var(--acc); box-shadow:0 0 8px var(--acc); transform:translateY(-50%);
+    animation:pk 1.8s linear infinite; animation-delay:var(--pd,0s)}
+  @keyframes pk{0%{left:-2px;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:calc(100% - 3px);opacity:0}}
   .nucleo{margin-top:14px; border:1px solid var(--acc-dk); border-radius:12px;
     background:rgba(63,214,143,.04); padding:18px}
   .nt{font-family:var(--mono); font-size:12px; letter-spacing:.12em; color:var(--acc);
@@ -165,7 +190,8 @@
   .ngrid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
   @media(max-width:640px){.ngrid{grid-template-columns:repeat(2,1fr)}}
   .nbox{background:var(--panel2); border:1px solid var(--border2); border-radius:9px;
-    padding:13px 11px; text-align:center}
+    padding:13px 11px; text-align:center; transition:transform .25s, border-color .25s}
+  .nbox:hover{transform:translateY(-3px); border-color:var(--acc-dk)}
   .nbox .bt{font-weight:700; font-size:13.5px}
   .nbox .bd{font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.4}
 
@@ -191,12 +217,55 @@
   .cycnote{font-family:var(--mono); font-size:11.5px; color:var(--faint); text-align:center;
     margin-top:12px; font-style:italic}
 
+  /* DEMO — roteador ao vivo ----------------------------------------- */
+  .demo{margin-top:40px}
+  .dterm{background:var(--panel2); border:1px solid var(--border); border-radius:12px;
+    overflow:hidden; box-shadow:0 30px 80px -30px #000}
+  .dterm .bar{display:flex; align-items:center; gap:8px; padding:11px 14px;
+    background:#0C1116; border-bottom:1px solid var(--border2)}
+  .dterm .bar i{width:11px; height:11px; border-radius:50%}
+  .dterm .bar .t{font-family:var(--mono); font-size:12px; color:var(--faint); margin-left:8px}
+  .dline{display:flex; align-items:center; gap:10px; padding:16px 18px; font-family:var(--mono);
+    font-size:14px; flex-wrap:wrap}
+  .dline .p{color:var(--acc); font-weight:700}
+  #dinput{flex:1; min-width:220px; background:transparent; border:none; outline:none;
+    color:var(--ink); font-family:var(--mono); font-size:14px; caret-color:var(--acc)}
+  #dinput::placeholder{color:var(--faint)}
+  #drun{font-family:var(--mono); font-size:13px; font-weight:700; color:#08110C;
+    background:var(--acc); border:none; border-radius:8px; padding:9px 18px; cursor:pointer;
+    transition:.2s}
+  #drun:hover{box-shadow:0 0 20px var(--acc-glow)}
+  .dchips{display:flex; flex-wrap:wrap; gap:8px; padding:0 18px 16px}
+  .dchip{font-family:var(--mono); font-size:11.5px; color:var(--muted); background:var(--panel);
+    border:1px solid var(--border); border-radius:99px; padding:5px 12px; cursor:pointer;
+    transition:.2s}
+  .dchip:hover{color:var(--acc); border-color:var(--acc-dk)}
+  #dout{border-top:1px solid var(--border2); padding:18px; display:none}
+  #dout.on{display:block}
+  .dbars{display:grid; gap:9px; margin:6px 0 4px}
+  .db{display:grid; grid-template-columns:120px 1fr 46px; gap:12px; align-items:center;
+    font-family:var(--mono); font-size:12.5px}
+  .db .lb{color:var(--muted)} .db.win .lb{color:var(--acc); font-weight:700}
+  .db .tr{height:8px; background:var(--border2); border-radius:99px; overflow:hidden}
+  .db .fl{height:100%; width:0; background:var(--faint); border-radius:99px;
+    transition:width .7s cubic-bezier(.2,.7,.2,1)}
+  .db.win .fl{background:linear-gradient(90deg,var(--acc-dk),var(--acc)); box-shadow:0 0 12px var(--acc-glow)}
+  .db .pt{color:var(--faint); text-align:right} .db.win .pt{color:var(--acc); font-weight:700}
+  .dwin{font-family:var(--mono); font-size:13px; margin:14px 0 4px; color:var(--ink)}
+  .dwin b{color:var(--acc)}
+  .dpack{font-family:var(--mono); font-size:12.5px; line-height:1.8; color:var(--muted)}
+  .dpack .gl{color:var(--acc); font-weight:700}
+  .dnote{font-family:var(--mono); font-size:11.5px; color:var(--faint); margin-top:14px; font-style:italic}
+  .dnote a{color:var(--muted)}
+
   /* números --------------------------------------------------------- */
   .nums{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:44px}
   @media(max-width:720px){.nums{grid-template-columns:repeat(2,1fr)}}
   .num{background:var(--panel); border:1px solid var(--border); border-radius:14px;
-    padding:26px 18px; text-align:center; position:relative; overflow:hidden}
-  .num::before{content:""; position:absolute; inset:0; background:radial-gradient(60% 60% at 50% 0%,var(--acc-glow),transparent 70%); opacity:.15}
+    padding:26px 18px; text-align:center; position:relative; overflow:hidden;
+    transition:transform .25s, border-color .25s}
+  .num:hover{transform:translateY(-4px); border-color:var(--acc-dk)}
+  .num::after{content:""; position:absolute; inset:0; background:radial-gradient(60% 60% at 50% 0%,var(--acc-glow),transparent 70%); opacity:.15; pointer-events:none}
   .num .v{font-family:var(--mono); font-size:clamp(34px,6vw,52px); font-weight:700; color:var(--acc);
     line-height:1; letter-spacing:-.02em; position:relative}
   .num .l{font-size:13px; color:var(--muted); margin-top:10px; position:relative; line-height:1.4}
@@ -205,7 +274,9 @@
   .manif{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:40px}
   @media(max-width:720px){.manif{grid-template-columns:1fr}}
   .mcard{background:var(--panel); border:1px solid var(--border); border-radius:12px;
-    padding:20px 22px; border-left:3px solid var(--acc)}
+    padding:20px 22px; border-left:3px solid var(--acc);
+    transition:transform .25s, box-shadow .25s}
+  .mcard:hover{transform:translateY(-3px); box-shadow:0 18px 44px -22px var(--acc-glow)}
   .mcard .mq{font-family:Georgia,serif; font-style:italic; font-size:17px; color:var(--ink);
     line-height:1.4}
   .mcard .mm{font-family:var(--mono); font-size:11.5px; color:var(--acc); margin-top:10px;
@@ -236,21 +307,24 @@
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important; transition:none!important}
     .term,.wordmark,.tag,.heroSub,.cta,.reveal,.step,.arrowdn{opacity:1!important; transform:none!important}
-    .grid{animation:none}
+    #fx{display:none}
+    .rung.lit::after,.arr .pk{display:none}
   }
 </style>
 </head>
 <body>
-<div class="bgfx"></div><div class="grid"></div>
+<div class="bgfx"></div><canvas id="fx"></canvas><div class="grid"></div>
+<div id="prog"></div>
 
 <div class="top" id="top">
   <div class="brand">RENATO<span class="dot">.</span></div>
   <nav class="toplinks">
-    <a href="#tese">tese</a>
-    <a href="#arq">arquitetura</a>
-    <a href="#numeros">números</a>
-    <a href="dossie.html">dossiê</a>
-    <a class="gh" href="https://github.com/ErickWilliamDeSousa/renato" target="_blank" rel="noopener">GitHub ↗</a>
+    <a href="#tese">Tese</a>
+    <a href="#arq">Arquitetura</a>
+    <a href="#demo">Demo</a>
+    <a href="#numeros">Números</a>
+    <a href="dossie.html">Dossiê</a>
+    <a class="gh" href="https://github.com/ErickWilliamDeSousa/renato" target="_blank" rel="noopener">GITHUB ↗</a>
   </nav>
 </div>
 
@@ -261,13 +335,13 @@
     <div class="bar"><i style="background:#F87171"></i><i style="background:#F5B84C"></i><i style="background:#3FD68F"></i><span class="t">renato — boot</span></div>
     <pre id="boot"></pre>
   </div>
-  <div class="wordmark" id="wm">RENATO<span class="dot">.</span></div>
+  <div class="wordmark" id="wm"><span id="wmtxt">RENATO</span><span class="dot">.</span></div>
   <div class="tag" id="tag">Seu agente de IA escreve rápido.<br>O Renato faz ele escrever <b>certo</b>.</div>
-  <p class="heroSub" id="sub">Um cérebro central <b style="color:var(--ink);font-weight:600">local</b> que dá memória persistente, método e gates de engenharia ao agente do seu IDE — test-first obrigatório, nenhuma primeira versão aceita, nenhum "pronto" sem evidência.</p>
+  <p class="heroSub" id="sub">Um cérebro central <b>local</b> que dá memória persistente, método e gates de engenharia ao agente do seu IDE — test-first obrigatório, nenhuma primeira versão aceita, nenhum "pronto" sem evidência.</p>
   <div class="cta" id="cta">
-    <a class="btn btn-1" href="dossie.html">Ler o dossiê completo →</a>
-    <a class="btn btn-2" href="RENATO_DOSSIE.pdf" download>⤓ Baixar PDF</a>
-    <a class="btn btn-2" href="starter/README.md">Começar em 5 min</a>
+    <a class="btn btn-1 mag" href="dossie.html">Ler o dossiê completo →</a>
+    <a class="btn btn-2 mag" href="#demo">Ver o roteador ao vivo</a>
+    <a class="btn btn-2 mag" href="RENATO_DOSSIE.pdf" download>⤓ Baixar PDF</a>
   </div>
   <div class="scrollcue">role para explorar</div>
 </header>
@@ -279,11 +353,11 @@
     <p class="lead">Documento se ignora, checklist se pula, boa intenção se esquece. Toda prática de engenharia sobe uma escada — e só descansa quando vira <b>mecanismo que acontece sozinho</b>. O trabalho do Renato é empurrar cada regra o mais para a direita possível.</p>
   </div>
   <div class="ladder" id="ladder">
-    <div class="rung"><div class="n">01</div><div class="rt">Documento</div><div class="rd">depende de leitura</div></div>
-    <div class="rung"><div class="n">02</div><div class="rt">Artefato</div><div class="rd">chega sozinho na conversa</div></div>
-    <div class="rung"><div class="n">03</div><div class="rt">Gate</div><div class="rd">bloqueia o "pronto"</div></div>
-    <div class="rung"><div class="n">04</div><div class="rt">Verificação</div><div class="rd">roda sem pedir</div></div>
-    <div class="rung"><div class="n">05</div><div class="rt">Métrica no tempo</div><div class="rd">mostra a direção</div></div>
+    <div class="rung glow" style="--sw:.0s"><div class="n">01</div><div class="rt">Documento</div><div class="rd">depende de leitura</div></div>
+    <div class="rung glow" style="--sw:.35s"><div class="n">02</div><div class="rt">Artefato</div><div class="rd">chega sozinho na conversa</div></div>
+    <div class="rung glow" style="--sw:.7s"><div class="n">03</div><div class="rt">Gate</div><div class="rd">bloqueia o "pronto"</div></div>
+    <div class="rung glow" style="--sw:1.05s"><div class="n">04</div><div class="rt">Verificação</div><div class="rd">roda sem pedir</div></div>
+    <div class="rung glow" style="--sw:1.4s"><div class="n">05</div><div class="rt">Métrica no tempo</div><div class="rd">mostra a direção</div></div>
   </div>
   <div class="ladderEnds"><span>conselho (se esquece)</span><span class="r">mecanismo (sobrevive) →</span></div>
 </section>
@@ -295,11 +369,11 @@
     <p class="lead">Um servidor MCP + CLI determinística que se conecta ao agente do seu editor. A identidade, os checkpoints e os gates chegam <b>dentro da conversa</b> — ele não precisa abrir arquivo nenhum. E nada sai da sua máquina.</p>
   </div>
   <div class="arch reveal d1">
-    <div class="abox"><div class="at">Agente do IDE</div><div class="ad">Antigravity · VS Code · Cursor<br>quem escreve o código</div></div>
-    <div class="arr">⇄</div>
-    <div class="abox hero"><div class="at">Servidor Renato</div><div class="ad">identidade · checkpoints · gates<br>injetados no agente</div><div class="al">100% LOCAL</div></div>
-    <div class="arr">→</div>
-    <div class="abox"><div class="at">Seu projeto</div><div class="ad">artefatos .renatao/<br>código com trilha auditável</div></div>
+    <div class="abox glow"><div class="at">Agente do IDE</div><div class="ad">Antigravity · VS Code · Cursor<br>quem escreve o código</div></div>
+    <div class="arr">⇄<span class="pk" style="--pd:0s"></span></div>
+    <div class="abox hero glow"><div class="at">Servidor Renato</div><div class="ad">identidade · checkpoints · gates<br>injetados no agente</div><div class="al">100% LOCAL</div></div>
+    <div class="arr">→<span class="pk" style="--pd:.9s"></span></div>
+    <div class="abox glow"><div class="at">Seu projeto</div><div class="ad">artefatos .renatao/<br>código com trilha auditável</div></div>
   </div>
   <div class="nucleo reveal d2">
     <div class="nt">NÚCLEO — MEMÓRIA E SEGREDOS NÃO SAEM DA SUA MÁQUINA</div>
@@ -321,7 +395,7 @@
   <div class="cyc">
     <div class="reveal d1">
       <div class="cyctit g">CICLO TEST-FIRST (XP)</div>
-      <div class="cflow" data-flow>
+      <div data-flow>
         <div class="step ok"><div class="st">1 · Escreve o teste</div><div class="ss">antes do código</div></div>
         <div class="arrowdn">↓</div>
         <div class="step fail"><div class="st">2 · Roda → falha</div><div class="ss">pelo motivo esperado</div></div>
@@ -334,7 +408,7 @@
     </div>
     <div class="reveal d2">
       <div class="cyctit a">REGRA DA SEGUNDA VERSÃO</div>
-      <div class="cflow" data-flow>
+      <div data-flow>
         <div class="step rasc"><div class="st">v1 — rascunho</div><div class="ss">nunca é entregue</div></div>
         <div class="arrowdn">↓</div>
         <div class="step warn"><div class="st">3 críticas concretas</div><div class="ss">trocar de papel e atacar</div></div>
@@ -348,16 +422,41 @@
   </div>
 </section>
 
+<!-- DEMO ROTEADOR -->
+<section id="demo" class="wrap">
+  <div class="reveal"><div class="kick">prove você mesmo · o roteador ao vivo</div>
+    <h2>Digite uma tarefa — <em>e veja o método ser escolhido</em></h2>
+    <p class="lead">Esta é a <b>mesma lógica</b> do <a href="https://github.com/ErickWilliamDeSousa/renato/blob/main/starter/roteador.py" target="_blank" rel="noopener" style="color:var(--acc)">starter/roteador.py</a>, rodando aqui na página: keywords ponderadas, soma, domínio vencedor. Sem chamada de rede, sem modelo — <b>zero LLM</b>. Rode duas vezes: a resposta é idêntica.</p>
+  </div>
+  <div class="demo reveal d1">
+    <div class="dterm glow">
+      <div class="bar"><i style="background:#F87171"></i><i style="background:#F5B84C"></i><i style="background:#3FD68F"></i><span class="t">renato — roteador determinístico</span></div>
+      <div class="dline"><span class="p">$</span> renatao rotear
+        <input id="dinput" type="text" maxlength="90" placeholder="fazer o deploy do container em produção" autocomplete="off">
+        <button id="drun">rotear →</button>
+      </div>
+      <div class="dchips">
+        <span class="dchip">fazer o deploy do container em produção</span>
+        <span class="dchip">revisar o módulo que está com bug</span>
+        <span class="dchip">criar projeto novo do zero</span>
+        <span class="dchip">tem uma senha vazada no código</span>
+        <span class="dchip">escrever a documentação da API</span>
+      </div>
+      <div id="dout"></div>
+    </div>
+  </div>
+</section>
+
 <!-- NÚMEROS -->
 <section id="numeros" class="wrap">
   <div class="reveal"><div class="kick">números · medido, não prometido</div>
     <h2>O sistema que cobra evidência <em>presta contas com evidência</em></h2>
   </div>
   <div class="nums" id="nums">
-    <div class="num"><div class="v" data-to="720" data-suf="+">0</div><div class="l">testes sobre o próprio Renato</div></div>
-    <div class="num"><div class="v" data-to="21">0</div><div class="l">evals-canário ponta a ponta</div></div>
-    <div class="num"><div class="v" data-to="1200" data-suf="+">0</div><div class="l">skills indexadas sob demanda</div></div>
-    <div class="num"><div class="v" data-to="0" data-txt="0">0</div><div class="l">LLM no caminho crítico</div></div>
+    <div class="num glow"><div class="v" data-to="720" data-suf="+">0</div><div class="l">testes sobre o próprio Renato</div></div>
+    <div class="num glow"><div class="v" data-to="21">0</div><div class="l">evals-canário ponta a ponta</div></div>
+    <div class="num glow"><div class="v" data-to="1200" data-suf="+">0</div><div class="l">skills indexadas sob demanda</div></div>
+    <div class="num glow"><div class="v" data-to="0" data-txt="0">0</div><div class="l">LLM no caminho crítico</div></div>
   </div>
 </section>
 
@@ -367,12 +466,12 @@
     <h2>Cada frase da casa <em>tem um mecanismo atrás</em></h2>
   </div>
   <div class="manif">
-    <div class="mcard reveal d1"><div class="mq">"Funciona" é opinião. "Esse comando roda e sai isso" é fato.</div><div class="mm">// critério de aceite como contrato</div></div>
-    <div class="mcard reveal d1"><div class="mq">A primeira versão que funciona ancora o pensamento.</div><div class="mm">// regra da segunda versão</div></div>
-    <div class="mcard reveal d2"><div class="mq">O autor jura. O adversário acha.</div><div class="mm">// revisão adversarial</div></div>
-    <div class="mcard reveal d2"><div class="mq">Backup que nunca foi restaurado é fé, não backup.</div><div class="mm">// verificação de integridade</div></div>
-    <div class="mcard reveal d3"><div class="mq">A nota só sobe com mecanismo, nunca com promessa.</div><div class="mm">// selo da casa (A–F)</div></div>
-    <div class="mcard reveal d3"><div class="mq">Se PHP for a melhor saída, PHP vence.</div><div class="mm">// avaliação, não dogma</div></div>
+    <div class="mcard glow reveal d1"><div class="mq">"Funciona" é opinião. "Esse comando roda e sai isso" é fato.</div><div class="mm">// critério de aceite como contrato</div></div>
+    <div class="mcard glow reveal d1"><div class="mq">A primeira versão que funciona ancora o pensamento.</div><div class="mm">// regra da segunda versão</div></div>
+    <div class="mcard glow reveal d2"><div class="mq">O autor jura. O adversário acha.</div><div class="mm">// revisão adversarial</div></div>
+    <div class="mcard glow reveal d2"><div class="mq">Backup que nunca foi restaurado é fé, não backup.</div><div class="mm">// verificação de integridade</div></div>
+    <div class="mcard glow reveal d3"><div class="mq">A nota só sobe com mecanismo, nunca com promessa.</div><div class="mm">// selo da casa (A–F)</div></div>
+    <div class="mcard glow reveal d3"><div class="mq">Se PHP for a melhor saída, PHP vence.</div><div class="mm">// avaliação, não dogma</div></div>
   </div>
 </section>
 
@@ -401,15 +500,92 @@
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-  // topbar solidifica no scroll · scrollcue some
+  /* ── topbar + progresso + scrollcue ─────────────────────────────── */
   var top = document.getElementById('top');
+  var prog = document.getElementById('prog');
   var cue = document.querySelector('.scrollcue');
   addEventListener('scroll', function(){
     top.classList.toggle('solid', scrollY>40);
     if(cue) cue.classList.toggle('gone', scrollY>60);
+    var h = document.documentElement.scrollHeight - innerHeight;
+    prog.style.width = (h>0 ? (scrollY/h*100) : 0) + '%';
   }, {passive:true});
 
-  // boot do terminal
+  /* ── fundo vivo: partículas + pulsos na grade ───────────────────── */
+  var cv = document.getElementById('fx');
+  if(!reduce && cv){
+    var cx = cv.getContext('2d'), W, H, DPR = Math.min(devicePixelRatio||1, 2);
+    var pts = [], pulses = [], mouse = {x:-9e3, y:-9e3};
+    function size(){
+      W = innerWidth; H = innerHeight;
+      cv.width = W*DPR; cv.height = H*DPR; cv.style.width=W+'px'; cv.style.height=H+'px';
+      cx.setTransform(DPR,0,0,DPR,0,0);
+      var n = Math.min(80, Math.floor(W/18));
+      pts = [];
+      for(var i=0;i<n;i++) pts.push({x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*.25, vy:(Math.random()-.5)*.25, r:Math.random()*1.4+.6});
+    }
+    size(); addEventListener('resize', size);
+    addEventListener('pointermove', function(e){ mouse.x=e.clientX; mouse.y=e.clientY; }, {passive:true});
+    var GRID = 64, lastPulse = 0;
+    function spawnPulse(now){
+      var horiz = Math.random()<.5;
+      var lane = Math.floor(Math.random()*((horiz?H:W)/GRID))*GRID;
+      pulses.push({h:horiz, lane:lane, pos:horiz?-40:-40, spd:1.6+Math.random()*2.2,
+        amber:Math.random()<.14, born:now});
+      lastPulse = now;
+    }
+    function tick(now){
+      if(document.hidden){ requestAnimationFrame(tick); return; }
+      cx.clearRect(0,0,W,H);
+      // partículas
+      for(var i=0;i<pts.length;i++){
+        var p = pts[i];
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<-10)p.x=W+10; if(p.x>W+10)p.x=-10;
+        if(p.y<-10)p.y=H+10; if(p.y>H+10)p.y=-10;
+        cx.beginPath(); cx.arc(p.x,p.y,p.r,0,7);
+        cx.fillStyle='rgba(63,214,143,.28)'; cx.fill();
+      }
+      // ligações
+      for(var a=0;a<pts.length;a++){
+        for(var b=a+1;b<pts.length;b++){
+          var dx=pts[a].x-pts[b].x, dy=pts[a].y-pts[b].y, d2=dx*dx+dy*dy;
+          if(d2<11000){
+            var o=(1-d2/11000)*.14;
+            cx.strokeStyle='rgba(63,214,143,'+o+')';
+            cx.beginPath(); cx.moveTo(pts[a].x,pts[a].y); cx.lineTo(pts[b].x,pts[b].y); cx.stroke();
+          }
+        }
+        // fio até o mouse
+        var mdx=pts[a].x-mouse.x, mdy=pts[a].y-mouse.y, md2=mdx*mdx+mdy*mdy;
+        if(md2<26000){
+          var mo=(1-md2/26000)*.3;
+          cx.strokeStyle='rgba(63,214,143,'+mo+')';
+          cx.beginPath(); cx.moveTo(pts[a].x,pts[a].y); cx.lineTo(mouse.x,mouse.y); cx.stroke();
+        }
+      }
+      // pulsos correndo na grade
+      if(now-lastPulse > 900 && pulses.length<7) spawnPulse(now);
+      for(var k=pulses.length-1;k>=0;k--){
+        var u=pulses[k]; u.pos+=u.spd;
+        var col = u.amber ? '245,184,76' : '63,214,143';
+        var grad, x0,y0,x1,y1;
+        if(u.h){ x0=u.pos-36; y0=u.lane; x1=u.pos; y1=u.lane; } else { x0=u.lane; y0=u.pos-36; x1=u.lane; y1=u.pos; }
+        grad = cx.createLinearGradient(x0,y0,x1,y1);
+        grad.addColorStop(0,'rgba('+col+',0)');
+        grad.addColorStop(1,'rgba('+col+',.55)');
+        cx.strokeStyle=grad; cx.lineWidth=1.4;
+        cx.beginPath(); cx.moveTo(x0,y0); cx.lineTo(x1,y1); cx.stroke();
+        cx.lineWidth=1;
+        if((u.h && u.pos>W+60)||(!u.h && u.pos>H+60)) pulses.splice(k,1);
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ── boot do terminal + wordmark decode ─────────────────────────── */
   var boot = document.getElementById('boot');
   var lines = [
     {t:'> renato --init',c:'p'},
@@ -420,52 +596,66 @@
     {t:'           pre-v2 · pre-commit · ship-check',c:'dim'},
     {t:'  doctor --deep .......... TUDO VERDE',c:'ok'},
   ];
+  function decodeWordmark(){
+    var el = document.getElementById('wmtxt');
+    var final_ = 'RENATO', glyphs = '!<>-_\\/[]{}=+*^?#01';
+    if(reduce){ el.textContent = final_; return; }
+    var frame = 0, total = 26;
+    (function run(){
+      var out = '';
+      for(var i=0;i<final_.length;i++){
+        var settle = (i+1)*(total/ (final_.length+1));
+        out += frame >= settle ? final_[i] : glyphs[Math.floor(Math.random()*glyphs.length)];
+      }
+      el.textContent = out;
+      if(frame++ < total) setTimeout(run, 34);
+      else el.textContent = final_;
+    })();
+  }
   function reveal(){
     ['wm','tag','sub','cta'].forEach(function(id){ document.getElementById(id).classList.add('in'); });
+    decodeWordmark();
   }
   if(reduce){
     boot.innerHTML = lines.map(function(l){return '<span class="'+l.c+'">'+l.t+'</span>';}).join('\n');
     reveal();
   } else {
     var li=0, out='';
-    function typeLine(){
+    (function typeLine(){
       if(li>=lines.length){ boot.innerHTML=out; reveal(); return; }
       var line=lines[li], i=0;
       var span='<span class="'+line.c+'">';
       (function ch(){
         if(i<=line.t.length){
           boot.innerHTML = out + span + line.t.slice(0,i) + '</span><span class="cursor"></span>';
-          i++; setTimeout(ch, line.c==='p'?34:9);
+          i++; setTimeout(ch, line.c==='p'?30:8);
         } else {
-          out += span + line.t + '</span>\n'; li++; setTimeout(typeLine, 120);
+          out += span + line.t + '</span>\n'; li++; setTimeout(typeLine, 110);
         }
       })();
-    }
-    setTimeout(typeLine, 500);
+    })();
   }
 
-  // reveal on scroll
+  /* ── reveal on scroll ───────────────────────────────────────────── */
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:.15, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
-  // escada acende
-  var ladder = document.getElementById('ladder');
+  /* ── escada acende ──────────────────────────────────────────────── */
   new IntersectionObserver(function(es,ob){
     es.forEach(function(e){ if(e.isIntersecting){
       var rungs=e.target.querySelectorAll('.rung');
       rungs.forEach(function(r,i){ setTimeout(function(){ r.classList.add('lit'); }, reduce?0:i*160); });
       ob.disconnect();
     }});
-  },{threshold:.4}).observe(ladder);
+  },{threshold:.4}).observe(document.getElementById('ladder'));
 
-  // ciclos animam passo a passo
+  /* ── ciclos passo a passo ───────────────────────────────────────── */
   document.querySelectorAll('[data-flow]').forEach(function(flow){
     new IntersectionObserver(function(es,ob){
       es.forEach(function(e){ if(e.isIntersecting){
-        var kids=e.target.children;
-        Array.prototype.forEach.call(kids, function(k,i){
+        Array.prototype.forEach.call(e.target.children, function(k,i){
           setTimeout(function(){ k.classList.add('in'); }, reduce?0:i*130);
         });
         ob.disconnect();
@@ -473,7 +663,7 @@
     },{threshold:.3}).observe(flow);
   });
 
-  // contadores
+  /* ── contadores ─────────────────────────────────────────────────── */
   new IntersectionObserver(function(es,ob){
     es.forEach(function(e){ if(e.isIntersecting){
       e.target.querySelectorAll('.v').forEach(function(v){
@@ -489,6 +679,100 @@
       ob.disconnect();
     }});
   },{threshold:.5}).observe(document.getElementById('nums'));
+
+  /* ── holofote nos cards (posição do mouse) ──────────────────────── */
+  document.addEventListener('pointermove', function(e){
+    var el = e.target.closest ? e.target.closest('.glow') : null;
+    if(!el) return;
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX-r.left)+'px');
+    el.style.setProperty('--my', (e.clientY-r.top)+'px');
+  }, {passive:true});
+
+  /* ── botões magnéticos ──────────────────────────────────────────── */
+  if(!reduce) document.querySelectorAll('.mag').forEach(function(b){
+    b.addEventListener('pointermove', function(e){
+      var r=b.getBoundingClientRect();
+      var dx=(e.clientX-r.left-r.width/2)/r.width, dy=(e.clientY-r.top-r.height/2)/r.height;
+      b.style.transform='translate('+(dx*6)+'px,'+(dy*5)+'px)';
+    });
+    b.addEventListener('pointerleave', function(){ b.style.transform=''; });
+  });
+
+  /* ── DEMO: o roteador do starter, portado 1:1 pra página ────────── */
+  var DOMINIOS = {
+    deploy:{ 'deploy':5,'publicar':4,'producao':4,'container':3,'docker':3,'healthcheck':3,'servidor':2,'subir':2 },
+    revisao:{ 'revisar':5,'auditar':5,'revisao':4,'bug':3,'quebrado':3,'erro':2,'verificar':2 },
+    projeto_novo:{ 'projeto novo':6,'criar projeto':5,'iniciar':3,'scaffold':5,'estrutura':3,'stack':3,'do zero':4 },
+    seguranca:{ 'segredo':5,'senha':5,'credencial':5,'vazamento':4,'seguranca':4,'vulnerabilidade':4,'auditoria de dependencias':5 }
+  };
+  var PACOTES = {
+    deploy:[ 'GATE: rode a suíte de testes e cole a saída ANTES do deploy.',
+             'GATE: Dockerfile precisa de HEALTHCHECK — sem isso, não embarca.',
+             'Depois do deploy, bata no endpoint REAL e guarde a resposta no recibo.' ],
+    revisao:[ 'Troque de papel: escreva 3 hipóteses de como o trabalho pode estar quebrado.',
+              'Teste cada hipótese DE VERDADE — se a revisão não achou nada, desconfie dela.',
+              'Caça a falso-feito: sucesso sem saída colada, teste que não testa.' ],
+    projeto_novo:[ "Responda por escrito as 5 perguntas — inclusive 'o que fica DE FORA da v1?'.",
+              'Stack por avaliação (mínimo 2 opções comparadas), registrada em DECISIONS.md.',
+              'Dia zero antes de funcionalidade: git, README, .env.example, primeiro teste verde.' ],
+    seguranca:[ 'Segredo NUNCA no código nem no acervo — .env + .env.example, sempre.',
+              'Rode a varredura de vazamento antes de qualquer entrega pública.',
+              'Backup que nunca foi restaurado é fé, não backup.' ],
+    geral:[ 'GATE: escreva o critério de aceite antes da primeira linha (comando → saída esperada).',
+            'GATE: teste antes do código — veja falhar pelo motivo esperado, então implemente.',
+            'Código relevante segue a Regra da Segunda Versão: v1 → 3 críticas → reescrita v2.' ]
+  };
+  var NOMES = {deploy:'deploy', revisao:'revisão', projeto_novo:'projeto novo', seguranca:'segurança'};
+  function normalizar(t){
+    return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+  }
+  function classificar(tarefa){
+    var texto = normalizar(tarefa), placar = {};
+    Object.keys(DOMINIOS).forEach(function(d){
+      var s = 0, termos = DOMINIOS[d];
+      Object.keys(termos).forEach(function(termo){ if(texto.indexOf(termo)>=0) s += termos[termo]; });
+      placar[d] = s;
+    });
+    var venc = Object.keys(placar).reduce(function(a,b){ return placar[b]>placar[a]?b:a; });
+    var pts = placar[venc];
+    var empate = Object.keys(placar).filter(function(d){ return placar[d]===pts; }).length > 1;
+    return { placar:placar, dominio:(pts===0||empate)?'geral':venc, pontos:pts };
+  }
+  var dinput = document.getElementById('dinput');
+  var dout = document.getElementById('dout');
+  function rodar(){
+    var tarefa = dinput.value.trim() || dinput.placeholder;
+    var r = classificar(tarefa);
+    var max = Math.max.apply(null, Object.keys(r.placar).map(function(d){return r.placar[d];}).concat([1]));
+    var html = '<div class="dbars">';
+    Object.keys(r.placar).forEach(function(d){
+      var win = d===r.dominio;
+      html += '<div class="db'+(win?' win':'')+'" data-w="'+(r.placar[d]/max*100)+'">'
+        +'<span class="lb">'+NOMES[d]+'</span><span class="tr"><span class="fl"></span></span>'
+        +'<span class="pt">'+r.placar[d]+' pts</span></div>';
+    });
+    html += '</div>';
+    html += '<div class="dwin">→ domínio: <b>'+(r.dominio==='geral'?'geral (sem match ou empate)':NOMES[r.dominio])+'</b> · o método cobrado:</div>';
+    var pacote = r.dominio==='geral' ? PACOTES.geral : PACOTES[r.dominio].concat(PACOTES.geral);
+    html += '<div class="dpack">' + pacote.map(function(p,i){
+      return '<div style="opacity:0;animation:fadeIn .4s '+(0.55+i*0.18)+'s forwards">'
+        + (i+1)+'. '+p.replace(/^GATE:/,'<span class="gl">GATE:</span>') + '</div>';
+    }).join('') + '</div>';
+    html += '<div class="dnote">mesma entrada → mesma saída, sempre. determinismo é feature — auditar é ler a tabela de pesos, não interrogar um modelo.</div>';
+    dout.innerHTML = html; dout.classList.add('on');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      dout.querySelectorAll('.db').forEach(function(db){
+        db.querySelector('.fl').style.width = Math.max(4, +db.dataset.w) + '%';
+      });
+    });});
+  }
+  document.getElementById('drun').addEventListener('click', rodar);
+  dinput.addEventListener('keydown', function(e){ if(e.key==='Enter') rodar(); });
+  document.querySelectorAll('.dchip').forEach(function(c){
+    c.addEventListener('click', function(){ dinput.value = c.textContent; rodar();
+      dinput.scrollIntoView({block:'center', behavior:'smooth'}); });
+  });
 })();
 </script>
 </body>
