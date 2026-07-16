@@ -1,4 +1,4 @@
-# RENATO — método de engenharia para a era dos agentes de IA
+﻿# RENATO — método de engenharia para a era dos agentes de IA
 
 > **"A vida é isso: conhecimento só serve se compartilhado."**
 
@@ -8,7 +8,7 @@ O Renato é um cérebro central local (servidor MCP + CLI determinística) que d
 do seu IDE três coisas que faltam nele: **memória que persiste** entre sessões,
 **método que não depende de boa vontade** e **gates que não aceitam "confia"**.
 
-📖 **Leia o dossiê completo:** [página do projeto](https://SEU-USUARIO.github.io/renato/) — 18 seções
+📖 **Leia o dossiê completo:** [página do projeto](https://erickwilliamdesousa.github.io/renato/) — 18 seções
 cobrindo a tese, a arquitetura, os protocolos, a segurança e o modelo de trabalho.
 
 ## O que está aqui — e o que não está
@@ -69,7 +69,7 @@ Quando o seu starter estiver rodando, a escada natural é:
 4. **Selo do projeto** — nota A–F determinística, medida no tempo
 5. **Colheita automática** — memória extraída ao concluir, sem depender de anotar
 
-Cada degrau está descrito conceitualmente no [dossiê](https://SEU-USUARIO.github.io/renato/).
+Cada degrau está descrito conceitualmente no [dossiê](https://erickwilliamdesousa.github.io/renato/).
 
 ## Filosofia
 
