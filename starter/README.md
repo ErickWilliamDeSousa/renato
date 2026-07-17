@@ -20,6 +20,10 @@ Em cada passo tem um ✅ dizendo como saber que deu certo antes de seguir.
    que estiver lá, digite só `C:\` → **Extrair**
 5. Vai surgir a pasta **`C:\renato-main`** — é a sua pasta do projeto
 
+![Print — onde clicar no GitHub: botão Code e Download ZIP](../docs/img/passo1_download.png)
+
+![Print — janela de extração: digite C:\ como destino](../docs/img/passo1_extrair.png)
+
 > **Por que `C:\` e não a Área de Trabalho?** Pastas com acento ou espaço no
 > caminho (ex.: `C:\Users\João Silva\Área de Trabalho`) quebram algumas
 > ferramentas. `C:\renato-main` é curto e à prova de erro.
@@ -39,6 +43,8 @@ O Python é o motor que roda o Renato. Instalar é como qualquer programa:
    (fica embaixo, perto do botão). Só depois clique **Install Now**
 4. Espere terminar e feche
 
+![Print — o instalador do Python com a caixinha Add to PATH marcada](../docs/img/passo2_python.png)
+
 > Esqueceu de marcar a caixinha? Não tente consertar: desinstale o Python
 > (Configurações → Aplicativos), instale de novo e marque. 2 minutos.
 
@@ -53,9 +59,11 @@ O Python é o motor que roda o Renato. Instalar é como qualquer programa:
    (o arquivo é texto aberto — você pode ler tudo que ele faz)
 4. Uma janela preta vai trabalhar por 1–2 minutos
 
-O instalador faz 3 coisas sozinho: instala as bibliotecas, roda os **10 testes**
+O instalador faz 3 coisas sozinho: instala as bibliotecas, roda os **15 testes**
 de saúde, e **gera a configuração do Antigravity já com os caminhos certos do
 SEU computador** — copiada para o Ctrl+V e aberta no Bloco de Notas.
+
+![Print — a janela do instalador terminando em TUDO PRONTO](../docs/img/passo3_instalador.png)
 
 **✅ Deu certo se:** a janela mostra **`TUDO PRONTO!`** e o Bloco de Notas abriu
 com um texto começando em `"mcpServers"`.
@@ -73,30 +81,39 @@ com um texto começando em `"mcpServers"`.
      dentro do `"mcpServers"` existente (o Bloco de Notas que abriu mostra o bloco).
 5. **Salve** (Ctrl+S) e clique em **Refresh** na lista de servidores
 
-**✅ Deu certo se:** aparece **`renato-starter`** na lista, com **4 ferramentas**:
-`session_start`, `iniciar_tarefa`, `memoria_gravar`, `task_complete`.
+![Print — o painel MCP do Antigravity com o renato-starter conectado](../docs/img/passo4_antigravity.png)
+
+**✅ Deu certo se:** aparece **`renato-starter`** na lista, com **5 ferramentas**:
+`verificar`, `session_start`, `iniciar_tarefa`, `memoria_gravar`, `task_complete`.
 
 ## Passo 5 — O primeiro comando (a prova final)
 
 No chat do agente do Antigravity, digite exatamente:
 
 ```
-Chame a ferramenta session_start do renato-starter com o tema "primeiro teste"
+Chame a ferramenta verificar do renato-starter
 ```
 
-**✅ FUNCIONOU se** o agente responder com as **regras da casa** — aceite como
-contrato, test-first, segunda versão, evidência antes de "pronto". Isso é o
-Renato injetando o método dentro da conversa. 🎉
+![Print — a resposta TUDO VERDE que confirma a instalação](../docs/img/passo5_chat.png)
 
-Agora prove o roteador determinístico:
+**✅ FUNCIONOU se** a resposta for **`TUDO VERDE — o Renato Starter está
+funcionando`**, com o resumo (Python, roteador, gate, memória). Essa ferramenta
+existe exatamente pra isso: confirmar a instalação sem precisar entender nada
+de técnico. 🎉
+
+Agora experimente o método de verdade:
+
+```
+Chame a ferramenta session_start do renato-starter com o tema "primeiro teste"
+```
+→ o agente recebe as **regras da casa** (aceite como contrato, test-first,
+segunda versão, evidência) e passa a trabalhar sob elas.
 
 ```
 Chame iniciar_tarefa com a descrição "fazer o deploy do container em produção"
 ```
-
-**✅ FUNCIONOU se** voltar `Domínio: deploy` com a lista do método cobrado.
-Rode o mesmo comando de novo: **a resposta é idêntica** — mesma entrada, mesmo
-método, sempre. Bem-vindo ao Renato.
+→ volta `Domínio: deploy` com o método cobrado. Rode duas vezes: **a resposta é
+idêntica** — mesma entrada, mesmo método, sempre. Bem-vindo ao Renato.
 
 ---
 
@@ -123,13 +140,13 @@ com uma foto da tela — sem vergonha, o repositório existe pra isso.
 
 | Arquivo | Conceito que demonstra |
 |---|---|
-| `servidor_mcp.py` | identidade injetada na conversa + as 4 ferramentas (~90 linhas) |
+| `servidor_mcp.py` | identidade injetada na conversa + as 5 ferramentas (inclui `verificar`, a prova de vida) |
 | `roteador.py` | classificação determinística — zero LLM no caminho crítico |
 | `memoria.py` | acervo local SQLite/FTS5 + leak-scan na ingestão (`[REDACTED]` antes do disco) |
 | `gates.py` | gates como funções puras — recusa recibo em branco |
 | `instalar.py` / `INSTALAR.bat` | onboarding de 1 clique: deps + testes + config gerada por máquina |
 | `templates/` | os artefatos: GSD, plano de teste, recibo, AGENTS.md |
-| `tests/test_smoke.py` | o método aplicado a si mesmo: nasceu test-first (10 testes) |
+| `tests/test_smoke.py` | o método aplicado a si mesmo: nasceu test-first (15 testes) |
 
 ### Outros editores (mesmo padrão: comando + args via stdio)
 

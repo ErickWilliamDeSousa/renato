@@ -1,7 +1,8 @@
 """Servidor MCP mínimo — a semente do seu próprio Renato.
 
-Quatro ferramentas que demonstram o coração do método:
+Cinco ferramentas que demonstram o coração do método:
 
+  verificar       → prova de vida: confere módulos, memória e determinismo
   session_start   → injeta identidade + memórias na conversa do agente
   iniciar_tarefa  → roteia a tarefa (determinístico) e cobra o pacote de método
   memoria_gravar  → grava no acervo local (com leak-scan na ingestão)
@@ -30,6 +31,42 @@ Você está operando sob o método da casa. Regras que não são sugestões:
    v1 → 3 críticas concretas → reescrita v2, com a trilha registrada.
 4. EVIDÊNCIA ANTES DE "PRONTO" — cole a saída real. Recibo em branco é recusado.
 """
+
+
+def diagnostico() -> str:
+    """Lógica pura do `verificar` — separada para ser testável sem MCP."""
+    import sys
+
+    problemas = []
+    rota_a = roteador.classificar("fazer o deploy do container em producao")
+    rota_b = roteador.classificar("fazer o deploy do container em producao")
+    if rota_a != rota_b:
+        problemas.append("roteador não-determinístico (nunca deveria acontecer)")
+    if rota_a[0] != "deploy":
+        problemas.append(f"roteador classificou errado: esperava deploy, veio {rota_a[0]}")
+    if gates.validar_evidencia("   ") is None:
+        problemas.append("gate de evidência aceitou recibo em branco")
+    try:
+        total = memoria.contar()
+    except Exception as exc:
+        problemas.append(f"memória inacessível: {exc}")
+        total = -1
+    if problemas:
+        return "PROBLEMAS ENCONTRADOS:\n" + "\n".join(f"- {p}" for p in problemas)
+    return (
+        "TUDO VERDE — o Renato Starter está funcionando.\n"
+        f"- Python {sys.version.split()[0]}\n"
+        f"- roteador determinístico: ok (deploy, {rota_a[1]} pts, 2x idêntico)\n"
+        "- gate de evidência: recusando recibo em branco, como deve\n"
+        f"- memória local: acessível ({total} memória(s) no acervo)\n"
+        "Pronto para trabalhar sob o método da casa."
+    )
+
+
+@mcp.tool()
+def verificar() -> str:
+    """Prova de vida da instalação: módulos, roteador, gate e memória."""
+    return diagnostico()
 
 
 @mcp.tool()

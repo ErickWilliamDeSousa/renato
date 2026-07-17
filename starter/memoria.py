@@ -22,8 +22,11 @@ DB_PADRAO = Path(__file__).parent / "memoria.db"
 # rico — mas o conceito é este: a fronteira de ingestão é um gate, não um aviso.
 PADROES_SEGREDO = [
     re.compile(r"AKIA[0-9A-Z]{16}"),                       # AWS access key
-    re.compile(r"ghp_[A-Za-z0-9]{36}"),                    # GitHub token
+    re.compile(r"ghp_[A-Za-z0-9]{36}"),                    # GitHub token clássico
+    re.compile(r"github_pat_[A-Za-z0-9_]{22,}"),           # GitHub fine-grained
     re.compile(r"sk-[A-Za-z0-9_-]{20,}"),                  # chaves estilo sk-...
+    re.compile(r"xox[baprs]-[A-Za-z0-9-]{10,}"),           # Slack
+    re.compile(r"(?i)bearer\s+[A-Za-z0-9._\-]{16,}"),      # header Authorization
     re.compile(r"(?i)(senha|password|api[_-]?key|token)\s*[:=]\s*\S+"),
 ]
 
@@ -60,6 +63,15 @@ def gravar(topico: str, conteudo: str, db_path: Path | None = None) -> dict:
         con.execute("INSERT INTO memorias VALUES (?, ?)", (topico, conteudo))
         con.commit()
         return {"gravado": True, "redigidos": n1 + n2}
+    finally:
+        con.close()
+
+
+def contar(db_path: Path | None = None) -> int:
+    """Quantas memórias existem no acervo — usado pela ferramenta `verificar`."""
+    con = conectar(db_path)
+    try:
+        return con.execute("SELECT COUNT(*) FROM memorias").fetchone()[0]
     finally:
         con.close()
 

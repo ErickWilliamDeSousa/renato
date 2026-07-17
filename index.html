@@ -727,11 +727,16 @@
   function normalizar(t){
     return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
   }
+  function temTermo(termo, texto){
+    // fronteira de palavra, igual ao roteador.py: "iniciar" nao casa em "reiniciar"
+    var esc = termo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp('\\b' + esc).test(texto);
+  }
   function classificar(tarefa){
     var texto = normalizar(tarefa), placar = {};
     Object.keys(DOMINIOS).forEach(function(d){
       var s = 0, termos = DOMINIOS[d];
-      Object.keys(termos).forEach(function(termo){ if(texto.indexOf(termo)>=0) s += termos[termo]; });
+      Object.keys(termos).forEach(function(termo){ if(temTermo(termo, texto)) s += termos[termo]; });
       placar[d] = s;
     });
     var venc = Object.keys(placar).reduce(function(a,b){ return placar[b]>placar[a]?b:a; });

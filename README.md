@@ -8,7 +8,7 @@
 e gates que não aceitam "confia".*
 
 [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-2ea44f)](LICENSE)
-[![Testes](https://img.shields.io/badge/testes-10%20passando-2ea44f)](starter/tests/test_smoke.py)
+[![Testes](https://img.shields.io/badge/testes-15%20passando-2ea44f)](starter/tests/test_smoke.py)
 [![MCP](https://img.shields.io/badge/protocolo-MCP-blue)](https://modelcontextprotocol.io)
 [![Feito no Brasil](https://img.shields.io/badge/feito%20no-Brasil-ffdf00)](#filosofia)
 
@@ -123,7 +123,7 @@ e gera a configuração do Antigravity prontinha) e dar o primeiro comando. ~10 
 git clone https://github.com/ErickWilliamDeSousa/renato.git
 cd renato/starter
 pip install -r requirements.txt
-python -m pytest tests/ -q     # a semente nasce verde: 10 testes
+python -m pytest tests/ -q     # a semente nasce verde: 15 testes
 python servidor_mcp.py         # servidor MCP no ar
 ```
 

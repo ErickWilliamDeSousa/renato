@@ -59,6 +59,40 @@ def test_recall_nao_quebra_com_entrada_maliciosa(tmp_path):
     assert memoria.recall('") OR (topico MATCH "x', db_path=db) is not None
 
 
+def test_roteador_nao_casa_termo_dentro_de_palavra():
+    # bug real da v1: "reiniciar" continha "iniciar" e roteava projeto_novo
+    dominio, _ = roteador.classificar("reiniciar o servidor de producao")
+    assert dominio == "deploy", "'iniciar' não pode casar dentro de 'reiniciar'"
+
+
+def test_roteador_prefixo_preserva_flexoes():
+    # a fronteira é só no início: "revisar" ainda casa "revisarmos"
+    assert roteador.classificar("vamos revisarmos o modulo")[0] == "revisao"
+
+
+def test_leak_scan_pega_github_fine_grained(tmp_path):
+    db = tmp_path / "t.db"
+    r = memoria.gravar("t", "use github_pat_11ABCDEFGH0123456789ab_XYZ para clonar", db_path=db)
+    assert r["redigidos"] >= 1
+    assert "github_pat_" not in memoria.recall("clonar", db_path=db)[0]["conteudo"]
+
+
+def test_memoria_contar(tmp_path):
+    db = tmp_path / "t.db"
+    assert memoria.contar(db_path=db) == 0
+    memoria.gravar("a", "primeira licao", db_path=db)
+    assert memoria.contar(db_path=db) == 1
+
+
+def test_diagnostico_reporta_tudo_verde():
+    import importlib.util
+    import pytest
+    if importlib.util.find_spec("mcp") is None:
+        pytest.skip("pacote mcp não instalado")
+    import servidor_mcp
+    assert "TUDO VERDE" in servidor_mcp.diagnostico()
+
+
 def test_gate_recusa_recibo_em_branco():
     import gates
     assert "RECUSADO" in gates.validar_evidencia("   ")

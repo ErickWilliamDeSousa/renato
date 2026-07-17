@@ -112,7 +112,8 @@ def main():
    2. Abra o arquivo de configuração (View raw config)
    3. Cole (Ctrl+V), salve e clique em Refresh
    4. No chat, digite:
-      Chame a ferramenta session_start do renato-starter com o tema "primeiro teste"
+      Chame a ferramenta verificar do renato-starter
+      (a resposta certa é "TUDO VERDE")
 
   O passo a passo com detalhes está no README.md desta pasta.
 """)

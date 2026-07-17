@@ -10,6 +10,7 @@ calibrados pelo seu histórico real e um "pacote" mais rico por domínio
 """
 from __future__ import annotations
 
+import re
 import unicodedata
 
 # Cada domínio tem termos com pesos. A soma dos pesos dos termos presentes
@@ -72,11 +73,22 @@ def normalizar(texto: str) -> str:
     return sem_acento.lower().strip()
 
 
+def _tem_termo(termo: str, texto: str) -> bool:
+    """O termo precisa começar em fronteira de palavra.
+
+    Substring crua produz falso positivo real: "reiniciar o servidor" contém
+    "iniciar" e rotearia para projeto_novo. Com a fronteira, "iniciar" não
+    casa dentro de "reiniciar" — mas "revisar" ainda casa "revisarmos"
+    (o prefixo em fronteira preserva as flexões do português).
+    """
+    return re.search(r"\b" + re.escape(termo), texto) is not None
+
+
 def classificar(tarefa: str) -> tuple[str, int]:
     """Retorna (domínio vencedor, pontuação). Empate ou zero → 'geral'."""
     texto = normalizar(tarefa)
     placar = {
-        dominio: sum(peso for termo, peso in termos.items() if termo in texto)
+        dominio: sum(peso for termo, peso in termos.items() if _tem_termo(termo, texto))
         for dominio, termos in DOMINIOS.items()
     }
     vencedor = max(placar, key=lambda d: placar[d])
