@@ -15,3 +15,19 @@ __pycache__/
 
 # ferramenta local de push (nao e conteudo do projeto)
 push_uma_vez.py
+
+# gerado pelo instalador com caminhos da maquina de cada um
+starter/config_antigravity.json
+
+# material local do Erick que NAO pertence ao repo publico
+RENATAO_PORTATIL_SEM_MEMORIA*/
+RENATAO_PORTATIL_SEM_MEMORIA*.zip
+MANUAL_RENATAO_IDE.txt
+RENATO_DOSSIE_WEB.html
+RENATO_DOSSIE_1.pdf
+RENATO_DOSSIE_CLARO_1.pdf
+RENATO — Dossiê.pdf
+GUIA_RENATAO.pdf
+GUIA_PROJETO_NOVO.pdf
+GUIA_FLUXO_DEPLOY.pdf
+GUIA_SEGURANCA.pdf

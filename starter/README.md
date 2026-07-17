@@ -1,148 +1,165 @@
-# Manual do Starter — a semente do seu próprio Renato
+# Do zero ao Renato funcionando — guia para quem nunca programou
 
-Um servidor MCP mínimo e **funcional** com os conceitos-chave do método.
-~300 linhas no total, sem mágica: leia tudo antes de rodar — é o ponto.
+Este guia leva você do **download** até o **primeiro comando funcionando no
+Antigravity**, sem precisar saber programar. São 5 passos, ~10 minutos.
+Em cada passo tem um ✅ dizendo como saber que deu certo antes de seguir.
 
-## O mapa
-
-| Arquivo | Conceito que demonstra | Linhas |
-|---|---|---|
-| `servidor_mcp.py` | identidade injetada na conversa + as 4 ferramentas | ~90 |
-| `roteador.py` | classificação determinística — zero LLM no caminho crítico | ~90 |
-| `memoria.py` | acervo local SQLite/FTS5 + leak-scan na ingestão | ~100 |
-| `gates.py` | gates como funções puras — recusa recibo em branco | ~30 |
-| `templates/` | os artefatos: contrato, plano de teste, recibo, AGENTS.md | — |
-| `tests/test_smoke.py` | o método aplicado a si mesmo: nasceu test-first | 10 testes |
+> Já é dev? Atalho: `git clone` → `INSTALAR.bat` (ou `pip install -r requirements.txt`
+> + `pytest`) → cole `config_antigravity.json` no seu editor. As seções técnicas
+> estão [no final](#para-quem-é-técnico).
 
 ---
 
-## 1. Instalação
+## Passo 1 — Baixar o projeto (sem precisar de git)
 
-**Requisitos:** Python 3.10+ ([python.org](https://python.org) — marque *"Add to PATH"* na instalação).
+1. Abra [github.com/ErickWilliamDeSousa/renato](https://github.com/ErickWilliamDeSousa/renato)
+2. Clique no botão verde **`<> Code`** (canto direito, em cima da lista de arquivos)
+3. Clique em **Download ZIP**
+4. Abra a pasta Downloads, clique com o **botão direito** no arquivo
+   `renato-main.zip` → **Extrair Tudo...** → em "Selecione um destino", apague o
+   que estiver lá, digite só `C:\` → **Extrair**
+5. Vai surgir a pasta **`C:\renato-main`** — é a sua pasta do projeto
 
-```bash
-git clone https://github.com/ErickWilliamDeSousa/renato.git
-cd renato/starter
-pip install -r requirements.txt
+> **Por que `C:\` e não a Área de Trabalho?** Pastas com acento ou espaço no
+> caminho (ex.: `C:\Users\João Silva\Área de Trabalho`) quebram algumas
+> ferramentas. `C:\renato-main` é curto e à prova de erro.
+
+**✅ Deu certo se:** existe a pasta `C:\renato-main` e dentro dela você vê
+`starter`, `docs`, `README.md`.
+
+## Passo 2 — Instalar o Python (uma vez só; pule se já tem)
+
+O Python é o motor que roda o Renato. Instalar é como qualquer programa:
+
+1. Abra [python.org/downloads](https://www.python.org/downloads/) e clique no
+   botão amarelo **Download Python 3.x**
+2. Abra o arquivo baixado
+3. **⚠️ A PARTE MAIS IMPORTANTE DO GUIA INTEIRO:** na primeira tela do
+   instalador, **marque a caixinha** `☑ Add python.exe to PATH`
+   (fica embaixo, perto do botão). Só depois clique **Install Now**
+4. Espere terminar e feche
+
+> Esqueceu de marcar a caixinha? Não tente consertar: desinstale o Python
+> (Configurações → Aplicativos), instale de novo e marque. 2 minutos.
+
+**✅ Deu certo se:** a instalação terminou com "Setup was successful".
+
+## Passo 3 — Duplo clique em `INSTALAR.bat`
+
+1. Abra a pasta `C:\renato-main\starter`
+2. Dê **duplo clique** em **`INSTALAR`** (ou `INSTALAR.bat`)
+3. Se o Windows mostrar um aviso azul *"O Windows protegeu o computador"*:
+   clique em **Mais informações** → **Executar assim mesmo**
+   (o arquivo é texto aberto — você pode ler tudo que ele faz)
+4. Uma janela preta vai trabalhar por 1–2 minutos
+
+O instalador faz 3 coisas sozinho: instala as bibliotecas, roda os **10 testes**
+de saúde, e **gera a configuração do Antigravity já com os caminhos certos do
+SEU computador** — copiada para o Ctrl+V e aberta no Bloco de Notas.
+
+**✅ Deu certo se:** a janela mostra **`TUDO PRONTO!`** e o Bloco de Notas abriu
+com um texto começando em `"mcpServers"`.
+
+## Passo 4 — Colar a configuração no Antigravity
+
+1. Abra o **Antigravity**
+2. No painel do **Agente** (o chat), procure o ícone de **MCP** (parece uma
+   tomada/plug) ou vá em **Settings → MCP Servers**
+3. Clique em **Manage MCP Servers** → **View raw config** (abre um arquivo de
+   configuração)
+4. **Cole** (Ctrl+V) o que o instalador copiou.
+   - Se o arquivo estava vazio ou só com `{ }`: apague e cole por cima.
+   - Se já existiam outros servidores: cole só o bloco `"renato-starter": {...}`
+     dentro do `"mcpServers"` existente (o Bloco de Notas que abriu mostra o bloco).
+5. **Salve** (Ctrl+S) e clique em **Refresh** na lista de servidores
+
+**✅ Deu certo se:** aparece **`renato-starter`** na lista, com **4 ferramentas**:
+`session_start`, `iniciar_tarefa`, `memoria_gravar`, `task_complete`.
+
+## Passo 5 — O primeiro comando (a prova final)
+
+No chat do agente do Antigravity, digite exatamente:
+
+```
+Chame a ferramenta session_start do renato-starter com o tema "primeiro teste"
 ```
 
-**Prove que está vivo antes de qualquer coisa** (aceite como contrato — o nosso próprio):
+**✅ FUNCIONOU se** o agente responder com as **regras da casa** — aceite como
+contrato, test-first, segunda versão, evidência antes de "pronto". Isso é o
+Renato injetando o método dentro da conversa. 🎉
 
-```bash
-python -m pytest tests/ -q
+Agora prove o roteador determinístico:
+
+```
+Chame iniciar_tarefa com a descrição "fazer o deploy do container em produção"
 ```
 
-Saída esperada: `10 passed`. Se apareceu isso, a semente está saudável.
+**✅ FUNCIONOU se** voltar `Domínio: deploy` com a lista do método cobrado.
+Rode o mesmo comando de novo: **a resposta é idêntica** — mesma entrada, mesmo
+método, sempre. Bem-vindo ao Renato.
 
-## 2. Conectar no seu IDE
+---
 
-O servidor fala MCP via stdio. A configuração é a mesma ideia em todo editor:
-*"rode este comando e converse com ele"*. Ajuste o caminho para onde você clonou.
+## Deu errado? Procure seu sintoma aqui
 
-### Claude Code
-```bash
-claude mcp add renato-starter -- python C:/caminho/para/renato/starter/servidor_mcp.py
-```
-
-### Cursor — arquivo `~/.cursor/mcp.json` (ou `.cursor/mcp.json` no projeto)
-```json
-{
-  "mcpServers": {
-    "renato-starter": {
-      "command": "python",
-      "args": ["C:/caminho/para/renato/starter/servidor_mcp.py"]
-    }
-  }
-}
-```
-
-### VS Code (Copilot/MCP) — arquivo `.vscode/mcp.json` no projeto
-```json
-{
-  "servers": {
-    "renato-starter": {
-      "type": "stdio",
-      "command": "python",
-      "args": ["C:/caminho/para/renato/starter/servidor_mcp.py"]
-    }
-  }
-}
-```
-
-### Antigravity e outros
-Mesmo padrão: painel de servidores MCP → novo servidor stdio → comando `python`,
-argumento com o caminho do `servidor_mcp.py`.
-
-> **Dica Windows:** use barras normais `/` ou barras duplas `\\` no JSON — barra
-> simples `\` quebra o parse.
-
-## 3. Uma sessão de exemplo
-
-Com o servidor conectado, converse com o agente do IDE assim:
-
-**Você:** *"Chame session_start com o tema 'api de pedidos'."*
-→ O agente recebe a identidade da casa (aceite como contrato, test-first, segunda
-versão, evidência) + memórias de sessões anteriores sobre o tema. **A partir daqui
-ele trabalha sob as regras.**
-
-**Você:** *"Chame iniciar_tarefa: 'fazer o deploy do container em produção'."*
-→ Resposta: domínio `deploy`, com o método cobrado — suíte antes do push,
-HEALTHCHECK obrigatório, smoke no endpoint real. Rode duas vezes: **a resposta é
-idêntica** — determinismo é feature.
-
-**Você:** *"Grave na memória: decidimos FastAPI em vez de Express porque o time domina Python."*
-→ `memoria_gravar` guarda no acervo local. Se houver uma credencial no texto, ela
-vira `[REDACTED]` **antes** de tocar o disco — teste você mesmo.
-
-**Você:** *"Chame task_complete com o resumo e a evidência."*
-→ Se a evidência for vazia ou template: **RECUSADO**. Cole a saída real do comando
-de aceite e ele aceita — e colhe a lição para a próxima sessão.
-
-## 4. Os templates no seu projeto
-
-Copie `templates/` para uma pasta `.renatao/` no seu projeto e use em toda tarefa:
-
-1. `GSD_TASK.md` — preencha ANTES da primeira linha (objetivo + comando → saída esperada)
-2. `TEST_FIRST_PLAN.md` — o teste e a falha esperada, antes de implementar
-3. `EXECUTION_RECEIPT.md` — a evidência real + a trilha v1 → críticas → v2
-4. `AGENTS.md` — copie para a raiz do repo: é o manual que qualquer agente lê ao chegar
-
-## 5. Estendendo a semente (por onde crescer)
-
-**Novo domínio no roteador** — adicione uma entrada em `DOMINIOS` e o pacote
-correspondente em `PACOTES` (`roteador.py`). Escreva o teste primeiro: *"tarefa X
-deve rotear para o domínio Y"*.
-
-**Nova regra na identidade** — edite `IDENTIDADE` em `servidor_mcp.py`. Regra boa
-tem verbo e consequência ("X é recusado sem Y"), não conselho vago.
-
-**Novo padrão no leak-scan** — adicione o regex em `PADROES_SEGREDO`
-(`memoria.py`) e um teste provando que ele redige.
-
-**Novo gate** — função pura em `gates.py` (entrada → recusa ou None) + o wrapper
-de uma linha no servidor. Gates testáveis são gates confiáveis.
-
-## 6. O caminho de evolução (na ordem que compensa)
-
-1. **Colheita automática** — o `task_complete` já grava a lição; evolua para extrair
-   decisões estruturadas de cada conclusão.
-2. **Evals por projeto** — um arquivo de casos `comando → saída esperada`; rode todos
-   antes de qualquer deploy e **bloqueie** se falhar.
-3. **Checkpoints como gates** — pre-code (classificação), pre-test (falha esperada
-   confirmada), pre-commit (trilha v1→v2 conferida).
-4. **Recall semântico** — embeddings + fusão RRF por cima do FTS5, com degrade para
-   busca textual offline ([como funciona](../docs/MEMORIA.md)).
-5. **Selo do projeto** — nota A–F determinística, medida ao longo do tempo.
-
-> A regra de ouro: **cada prática só está pronta quando virou mecanismo** — algo que
-> bloqueia, não que aconselha.
-
-## 7. Problemas comuns
-
-| Sintoma | Causa provável | Solução |
+| O que aconteceu | Causa | O que fazer |
 |---|---|---|
-| `python` não é reconhecido | Python fora do PATH | reinstale marcando *Add to PATH*, ou use `py` no lugar de `python` |
-| `ModuleNotFoundError: mcp` | dependências não instaladas | `pip install -r requirements.txt` na pasta `starter/` |
-| IDE não lista as ferramentas | caminho errado no JSON | use o caminho ABSOLUTO do `servidor_mcp.py`, com `/` |
-| `no such module: fts5` | Python muito antigo | atualize para 3.10+ (o FTS5 vem embutido no SQLite dele) |
-| acentos estranhos no Windows | console em cp1252 | `set PYTHONIOENCODING=utf-8` antes de rodar |
+| Duplo clique no INSTALAR.bat abriu a **página do Python** | Python não instalado | é o esperado! siga o Passo 2 e rode de novo |
+| `python não é reconhecido` ou abriu a **Loja do Windows** | caixinha do PATH não marcada | desinstale o Python e refaça o Passo 2 marcando a caixinha |
+| A janela preta **fechou sozinha** rapidinho | erro antes do pause | abra a pasta no Explorador, digite `cmd` na barra de endereço, Enter, digite `INSTALAR.bat` — a mensagem fica na tela; mande uma foto para quem te indicou |
+| `Algum teste falhou` | download incompleto ou antivírus | baixe o ZIP de novo e reextraia; rode o INSTALAR.bat de novo |
+| `renato-starter` **não aparece** no Antigravity | colou no lugar errado ou não salvou | refaça o Passo 4 com calma; depois de salvar, clique Refresh; se nada, feche e abra o Antigravity |
+| Aparece na lista mas **dá erro ao chamar** | pasta com acento/espaço no caminho | mova a pasta para `C:\renato-main` e rode o INSTALAR.bat de novo (ele regenera a configuração) |
+| Letras estranhas (Ã©, Ã§) na janela preta | codificação do console | não afeta o funcionamento; ignore |
+
+Não achou seu caso? Abra uma [issue no GitHub](https://github.com/ErickWilliamDeSousa/renato/issues)
+com uma foto da tela — sem vergonha, o repositório existe pra isso.
+
+---
+
+## Para quem é técnico
+
+### O mapa da semente
+
+| Arquivo | Conceito que demonstra |
+|---|---|
+| `servidor_mcp.py` | identidade injetada na conversa + as 4 ferramentas (~90 linhas) |
+| `roteador.py` | classificação determinística — zero LLM no caminho crítico |
+| `memoria.py` | acervo local SQLite/FTS5 + leak-scan na ingestão (`[REDACTED]` antes do disco) |
+| `gates.py` | gates como funções puras — recusa recibo em branco |
+| `instalar.py` / `INSTALAR.bat` | onboarding de 1 clique: deps + testes + config gerada por máquina |
+| `templates/` | os artefatos: GSD, plano de teste, recibo, AGENTS.md |
+| `tests/test_smoke.py` | o método aplicado a si mesmo: nasceu test-first (10 testes) |
+
+### Outros editores (mesmo padrão: comando + args via stdio)
+
+O `config_antigravity.json` gerado serve de base — o formato muda pouco:
+
+- **Claude Code:** `claude mcp add renato-starter -- python C:/renato-main/starter/servidor_mcp.py`
+- **Cursor:** cole o mesmo JSON em `~/.cursor/mcp.json`
+- **VS Code:** em `.vscode/mcp.json`, troque `"mcpServers"` por `"servers"` e
+  adicione `"type": "stdio"` no servidor
+
+### Usando os templates no seu projeto
+
+Copie `templates/` para `.renatao/` no seu projeto: `GSD_TASK.md` antes da
+primeira linha, `TEST_FIRST_PLAN.md` antes de implementar, `EXECUTION_RECEIPT.md`
+antes do "pronto", `AGENTS.md` na raiz do repo.
+
+### Estendendo a semente
+
+- **Novo domínio**: entrada em `DOMINIOS` + pacote em `PACOTES` (`roteador.py`) — teste primeiro
+- **Nova regra de identidade**: `IDENTIDADE` em `servidor_mcp.py` — verbo e consequência, não conselho
+- **Novo padrão de segredo**: regex em `PADROES_SEGREDO` (`memoria.py`) + teste provando a redação
+- **Novo gate**: função pura em `gates.py` + wrapper de uma linha no servidor
+
+### O caminho de evolução (na ordem que compensa)
+
+1. **Colheita automática** — extrair decisões estruturadas de cada `task_complete`
+2. **Evals por projeto** — casos `comando → saída esperada` que bloqueiam deploy
+3. **Checkpoints como gates** — pre-code, pre-test, pre-commit recusando etapa pulada
+4. **Recall semântico** — embeddings + fusão RRF sobre o FTS5 ([como funciona](../docs/MEMORIA.md))
+5. **Selo do projeto** — nota A–F determinística, medida no tempo
+
+> A regra de ouro: **cada prática só está pronta quando virou mecanismo** —
+> algo que bloqueia, não que aconselha.

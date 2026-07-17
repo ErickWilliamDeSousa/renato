@@ -110,7 +110,14 @@ Este repositório **não é o Renato inteiro**. É o conceito completo + uma sem
 A ideia: você não clona o Renato — você **inicia o seu**. O caminho está mapeado;
 a caminhada (e o acervo que ela gera) é sua.
 
-## Comece em 5 minutos
+## Comece agora
+
+**Nunca programou?** Sem problema — o guia foi feito pra você:
+**[Do zero ao Renato funcionando](starter/README.md)** — baixar o ZIP, instalar o
+Python, dar **duplo clique em `INSTALAR.bat`** (ele instala tudo, roda os testes
+e gera a configuração do Antigravity prontinha) e dar o primeiro comando. ~10 min.
+
+**Já é dev?**
 
 ```bash
 git clone https://github.com/ErickWilliamDeSousa/renato.git
@@ -120,8 +127,7 @@ python -m pytest tests/ -q     # a semente nasce verde: 10 testes
 python servidor_mcp.py         # servidor MCP no ar
 ```
 
-Depois conecte no seu IDE — **[manual completo do starter](starter/README.md)**, com
-configuração por editor, exemplo de sessão e guia de extensão.
+Config por editor, exemplo de sessão e guia de extensão: [manual do starter](starter/README.md#para-quem-é-técnico).
 
 ## Documentação
 
