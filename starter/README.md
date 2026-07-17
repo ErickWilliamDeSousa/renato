@@ -136,6 +136,14 @@ com uma foto da tela — sem vergonha, o repositório existe pra isso.
 
 ## Para quem é técnico
 
+> **Atalho dev:** `git clone` → `cd renato/starter` → `pip install -r requirements.txt`
+> → `pytest -q` (15 verdes) → aponte seu cliente MCP para `python servidor_mcp.py`.
+> A tabela `DOMINIOS`/`PACOTES`, os gates puros e o leak-scan estão em ~300 linhas
+> legíveis — leia antes de estender.
+>
+> Quer o desenho completo (RRF, decisões de engenharia, como o starter vira
+> produção)? **[Deep-dive de engenharia](../docs/ENGENHARIA.md)**.
+
 ### O mapa da semente
 
 | Arquivo | Conceito que demonstra |
@@ -175,7 +183,7 @@ antes do "pronto", `AGENTS.md` na raiz do repo.
 1. **Colheita automática** — extrair decisões estruturadas de cada `task_complete`
 2. **Evals por projeto** — casos `comando → saída esperada` que bloqueiam deploy
 3. **Checkpoints como gates** — pre-code, pre-test, pre-commit recusando etapa pulada
-4. **Recall semântico** — embeddings + fusão RRF sobre o FTS5 ([como funciona](../docs/MEMORIA.md))
+4. **Recall semântico** — embeddings + fusão RRF sobre o FTS5 ([como funciona](../docs/ENGENHARIA.md#5-memória-leak-scan-na-ingestão--recall-híbrido))
 5. **Selo do projeto** — nota A–F determinística, medida no tempo
 
 > A regra de ouro: **cada prática só está pronta quando virou mecanismo** —

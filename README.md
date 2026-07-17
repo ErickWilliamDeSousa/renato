@@ -136,6 +136,7 @@ Config por editor, exemplo de sessão e guia de extensão: [manual do starter](s
 | [📕 Dossiê completo (página)](https://erickwilliamdesousa.github.io/renato/) | tudo, com a narrativa inteira — comece por aqui |
 | [Manifesto](docs/MANIFESTO.md) | as frases da casa e o mecanismo por trás de cada uma |
 | [Arquitetura](docs/ARQUITETURA.md) | componentes, o fluxo de uma tarefa (9 passos, 6 gates) |
+| [**Deep-dive de engenharia**](docs/ENGENHARIA.md) | **para dev sênior**: RRF, gates puros, decisões e trade-offs, como o starter vira produção |
 | [Roteamento](docs/ROTEAMENTO.md) | por que zero LLM no caminho crítico |
 | [Memória](docs/MEMORIA.md) | recall híbrido (FTS5 + embeddings + RRF), colheita, honestidade sobre dados |
 | [Artefatos](docs/ARTEFATOS.md) | a papelada que trabalha: GSD, recibo, evals, selo |

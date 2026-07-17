@@ -31,3 +31,6 @@ GUIA_RENATAO.pdf
 GUIA_PROJETO_NOVO.pdf
 GUIA_FLUXO_DEPLOY.pdf
 GUIA_SEGURANCA.pdf
+
+# scripts locais de setup (fora do conteudo)
+set_topics.py
