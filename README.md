@@ -12,7 +12,7 @@ e gates que não aceitam "confia".*
 [![MCP](https://img.shields.io/badge/protocolo-MCP-blue)](https://modelcontextprotocol.io)
 [![Feito no Brasil](https://img.shields.io/badge/feito%20no-Brasil-ffdf00)](#filosofia)
 
-**[📖 Leia o dossiê completo](https://erickwilliamdesousa.github.io/renato/)** — 18 seções: tese, arquitetura, protocolos, segurança, números e o modelo de trabalho
+**[Leia o dossiê completo](https://erickwilliamdesousa.github.io/renato/)** — 18 seções: tese, arquitetura, protocolos, segurança, números e o modelo de trabalho
 
 </div>
 
@@ -36,7 +36,7 @@ Toda prática de engenharia sobe uma escada — e só descansa quando vira mecan
 
 ```
 documento → artefato → gate → verificação automática → métrica no tempo
-(se esquece)                                        (sobrevive)
+(se esquece) (sobrevive)
 ```
 
 O trabalho do Renato é empurrar cada regra da casa o mais para a direita possível.
@@ -49,8 +49,8 @@ conecta ao agente do seu editor (Antigravity, VS Code, Cursor — qualquer um qu
 
 ```mermaid
 flowchart LR
-    A["🖥️ AGENTE DO IDE<br/><small>quem escreve o código</small>"] <-->|MCP| B["🧠 SERVIDOR RENATO<br/><small>identidade · checkpoints · gates<br/>100% local</small>"]
-    B --> C["📁 SEU PROJETO<br/><small>artefatos .renatao/<br/>trilha auditável</small>"]
+    A["AGENTE DO IDE<br/><small>quem escreve o código</small>"] <-->|MCP| B["SERVIDOR RENATO<br/><small>identidade · checkpoints · gates<br/>100% local</small>"]
+    B --> C["SEU PROJETO<br/><small>artefatos .renatao/<br/>trilha auditável</small>"]
 ```
 
 Ele dá ao agente três coisas que faltam nele:
@@ -100,7 +100,7 @@ pagamento, dados) exige torneio de 3 abordagens julgadas.
 
 Este repositório **não é o Renato inteiro**. É o conceito completo + uma semente funcional:
 
-| ✅ Aberto (aqui) | 🏠 Em casa (não publicado) |
+| Aberto (aqui) | Em casa (não publicado) |
 |---|---|
 | O método e os protocolos, na íntegra conceitual | As 1.200+ skills indexadas |
 | A arquitetura e todas as decisões | Os evals e o Selo da Casa de produção |
@@ -123,8 +123,8 @@ e gera a configuração do Antigravity prontinha) e dar o primeiro comando. ~10 
 git clone https://github.com/ErickWilliamDeSousa/renato.git
 cd renato/starter
 pip install -r requirements.txt
-python -m pytest tests/ -q     # a semente nasce verde: 15 testes
-python servidor_mcp.py         # servidor MCP no ar
+python -m pytest tests/ -q # a semente nasce verde: 15 testes
+python servidor_mcp.py # servidor MCP no ar
 ```
 
 Config por editor, exemplo de sessão e guia de extensão: [manual do starter](starter/README.md#para-quem-é-técnico).
@@ -133,7 +133,7 @@ Config por editor, exemplo de sessão e guia de extensão: [manual do starter](s
 
 | Doc | O que responde |
 |---|---|
-| [📕 Dossiê completo (página)](https://erickwilliamdesousa.github.io/renato/) | tudo, com a narrativa inteira — comece por aqui |
+| [Dossiê completo (página)](https://erickwilliamdesousa.github.io/renato/) | tudo, com a narrativa inteira — comece por aqui |
 | [Manifesto](docs/MANIFESTO.md) | as frases da casa e o mecanismo por trás de cada uma |
 | [Arquitetura](docs/ARQUITETURA.md) | componentes, o fluxo de uma tarefa (9 passos, 6 gates) |
 | [**Deep-dive de engenharia**](docs/ENGENHARIA.md) | **para dev sênior**: RRF, gates puros, decisões e trade-offs, como o starter vira produção |

@@ -2,7 +2,7 @@
 
 Este guia leva você do **download** até o **primeiro comando funcionando no
 Antigravity**, sem precisar saber programar. São 5 passos, ~10 minutos.
-Em cada passo tem um ✅ dizendo como saber que deu certo antes de seguir.
+Em cada passo tem um dizendo como saber que deu certo antes de seguir.
 
 > Já é dev? Atalho: `git clone` → `INSTALAR.bat` (ou `pip install -r requirements.txt`
 > + `pytest`) → cole `config_antigravity.json` no seu editor. As seções técnicas
@@ -28,7 +28,7 @@ Em cada passo tem um ✅ dizendo como saber que deu certo antes de seguir.
 > caminho (ex.: `C:\Users\João Silva\Área de Trabalho`) quebram algumas
 > ferramentas. `C:\renato-main` é curto e à prova de erro.
 
-**✅ Deu certo se:** existe a pasta `C:\renato-main` e dentro dela você vê
+**Deu certo se:** existe a pasta `C:\renato-main` e dentro dela você vê
 `starter`, `docs`, `README.md`.
 
 ## Passo 2 — Instalar o Python (uma vez só; pule se já tem)
@@ -38,8 +38,8 @@ O Python é o motor que roda o Renato. Instalar é como qualquer programa:
 1. Abra [python.org/downloads](https://www.python.org/downloads/) e clique no
    botão amarelo **Download Python 3.x**
 2. Abra o arquivo baixado
-3. **⚠️ A PARTE MAIS IMPORTANTE DO GUIA INTEIRO:** na primeira tela do
-   instalador, **marque a caixinha** `☑ Add python.exe to PATH`
+3. **A PARTE MAIS IMPORTANTE DO GUIA INTEIRO:** na primeira tela do
+   instalador, **marque a caixinha** `Add python.exe to PATH`
    (fica embaixo, perto do botão). Só depois clique **Install Now**
 4. Espere terminar e feche
 
@@ -48,7 +48,7 @@ O Python é o motor que roda o Renato. Instalar é como qualquer programa:
 > Esqueceu de marcar a caixinha? Não tente consertar: desinstale o Python
 > (Configurações → Aplicativos), instale de novo e marque. 2 minutos.
 
-**✅ Deu certo se:** a instalação terminou com "Setup was successful".
+**Deu certo se:** a instalação terminou com "Setup was successful".
 
 ## Passo 3 — Duplo clique em `INSTALAR.bat`
 
@@ -65,7 +65,7 @@ SEU computador** — copiada para o Ctrl+V e aberta no Bloco de Notas.
 
 ![Print — a janela do instalador terminando em TUDO PRONTO](../docs/img/passo3_instalador.png)
 
-**✅ Deu certo se:** a janela mostra **`TUDO PRONTO!`** e o Bloco de Notas abriu
+**Deu certo se:** a janela mostra **`TUDO PRONTO!`** e o Bloco de Notas abriu
 com um texto começando em `"mcpServers"`.
 
 ## Passo 4 — Colar a configuração no Antigravity
@@ -83,7 +83,7 @@ com um texto começando em `"mcpServers"`.
 
 ![Print — o painel MCP do Antigravity com o renato-starter conectado](../docs/img/passo4_antigravity.png)
 
-**✅ Deu certo se:** aparece **`renato-starter`** na lista, com **5 ferramentas**:
+**Deu certo se:** aparece **`renato-starter`** na lista, com **5 ferramentas**:
 `verificar`, `session_start`, `iniciar_tarefa`, `memoria_gravar`, `task_complete`.
 
 ## Passo 5 — O primeiro comando (a prova final)
@@ -96,10 +96,10 @@ Chame a ferramenta verificar do renato-starter
 
 ![Print — a resposta TUDO VERDE que confirma a instalação](../docs/img/passo5_chat.png)
 
-**✅ FUNCIONOU se** a resposta for **`TUDO VERDE — o Renato Starter está
+**FUNCIONOU se** a resposta for **`TUDO VERDE — o Renato Starter está
 funcionando`**, com o resumo (Python, roteador, gate, memória). Essa ferramenta
 existe exatamente pra isso: confirmar a instalação sem precisar entender nada
-de técnico. 🎉
+de técnico.
 
 Agora experimente o método de verdade:
 

@@ -2,13 +2,13 @@
 
 Cinco ferramentas que demonstram o coração do método:
 
-  verificar       → prova de vida: confere módulos, memória e determinismo
-  session_start   → injeta identidade + memórias na conversa do agente
-  iniciar_tarefa  → roteia a tarefa (determinístico) e cobra o pacote de método
-  memoria_gravar  → grava no acervo local (com leak-scan na ingestão)
-  task_complete   → GATE: recusa "pronto" sem evidência real, e colhe a lição
+  verificar → prova de vida: confere módulos, memória e determinismo
+  session_start → injeta identidade + memórias na conversa do agente
+  iniciar_tarefa → roteia a tarefa (determinístico) e cobra o pacote de método
+  memoria_gravar → grava no acervo local (com leak-scan na ingestão)
+  task_complete → GATE: recusa "pronto" sem evidência real, e colhe a lição
 
-Rodar:  python servidor_mcp.py   (transporte stdio — é o que o IDE espera)
+Rodar: python servidor_mcp.py (transporte stdio — é o que o IDE espera)
 """
 from __future__ import annotations
 
@@ -44,7 +44,7 @@ def diagnostico() -> str:
         problemas.append("roteador não-determinístico (nunca deveria acontecer)")
     if rota_a[0] != "deploy":
         problemas.append(f"roteador classificou errado: esperava deploy, veio {rota_a[0]}")
-    if gates.validar_evidencia("   ") is None:
+    if gates.validar_evidencia(" ") is None:
         problemas.append("gate de evidência aceitou recibo em branco")
     try:
         total = memoria.contar()
@@ -97,7 +97,7 @@ def iniciar_tarefa(descricao: str) -> str:
 def memoria_gravar(topico: str, conteudo: str) -> str:
     """Grava uma decisão ou lição no acervo local (leak-scan roda antes)."""
     resultado = memoria.gravar(topico, conteudo)
-    aviso = f" ⚠ {resultado['redigidos']} segredo(s) redigido(s)." if resultado["redigidos"] else ""
+    aviso = f" {resultado['redigidos']} segredo(s) redigido(s)." if resultado["redigidos"] else ""
     if not resultado["gravado"]:
         return f"Não gravado: {resultado['motivo']}.{aviso}"
     return f"Memória gravada.{aviso}"
