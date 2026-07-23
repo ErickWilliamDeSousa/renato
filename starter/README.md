@@ -128,9 +128,10 @@ idêntica** — mesma entrada, mesmo método, sempre. Bem-vindo ao Renato.
 | `renato-starter` **não aparece** no Antigravity | colou no lugar errado ou não salvou | refaça o Passo 4 com calma; depois de salvar, clique Refresh; se nada, feche e abra o Antigravity |
 | Aparece na lista mas **dá erro ao chamar** | pasta com acento/espaço no caminho | mova a pasta para `C:\renato-main` e rode o INSTALAR.bat de novo (ele regenera a configuração) |
 | Letras estranhas (Ã©, Ã§) na janela preta | codificação do console | não afeta o funcionamento; ignore |
+| **Qualquer outro problema** | — | dê duplo clique em **`DIAGNOSTICO.bat`** (nesta pasta): ele checa tudo e diz o que está errado. Mande um print da tela dele para o suporte |
 
 Não achou seu caso? Abra uma [issue no GitHub](https://github.com/ErickWilliamDeSousa/renato/issues)
-com uma foto da tela — sem vergonha, o repositório existe pra isso.
+com uma foto da tela do `DIAGNOSTICO.bat` — sem vergonha, o repositório existe pra isso.
 
 ---
 

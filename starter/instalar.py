@@ -30,6 +30,10 @@ def falha(msg, dica):
 
 
 def main():
+    if sys.version_info < (3, 10):
+        falha(f"Seu Python é {sys.version.split()[0]}, mas o Renato precisa do 3.10 ou mais novo.",
+              "instale o Python atual em python.org/downloads (marcando 'Add python.exe to PATH') "
+              "e rode o INSTALAR.bat de novo.")
     print(f"  Python encontrado: {sys.version.split()[0]}  OK")
 
     # 1 — dependências -----------------------------------------------------
@@ -42,6 +46,11 @@ def main():
         falha("A instalação das bibliotecas falhou.",
               "confira sua internet e rode o INSTALAR.bat de novo. "
               "Se persistir, mande uma foto desta janela para quem te indicou o projeto.")
+    r = subprocess.run([sys.executable, "-c", "import mcp"], capture_output=True)
+    if r.returncode != 0:
+        falha("As bibliotecas instalaram, mas o pacote 'mcp' não importa neste Python.",
+              "você provavelmente tem mais de um Python na máquina. Feche tudo, rode o "
+              "INSTALAR.bat de novo e, se repetir, rode o DIAGNOSTICO.bat e mande o print.")
     print("  Bibliotecas instaladas.  OK")
 
     # 2 — testes -----------------------------------------------------------
