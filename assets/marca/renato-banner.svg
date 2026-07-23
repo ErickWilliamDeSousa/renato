@@ -1,0 +1,62 @@
+<svg width="1500" height="500" viewBox="0 0 1500 500" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="g1" cx="85%" cy="0%" r="75%">
+    <stop offset="0%" stop-color="#3FD68F" stop-opacity=".15"/>
+    <stop offset="60%" stop-color="#3FD68F" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="g2" cx="5%" cy="100%" r="55%">
+    <stop offset="0%" stop-color="#F5B84C" stop-opacity=".07"/>
+    <stop offset="70%" stop-color="#F5B84C" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<rect width="1500" height="500" fill="#0B0F14"/>
+<g><line x1="0" y1="0" x2="0" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="60" y1="0" x2="60" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="120" y1="0" x2="120" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="180" y1="0" x2="180" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="240" y1="0" x2="240" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="300" y1="0" x2="300" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="360" y1="0" x2="360" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="420" y1="0" x2="420" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="480" y1="0" x2="480" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="540" y1="0" x2="540" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="600" y1="0" x2="600" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="660" y1="0" x2="660" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="720" y1="0" x2="720" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="780" y1="0" x2="780" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="840" y1="0" x2="840" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="900" y1="0" x2="900" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="960" y1="0" x2="960" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="1020" y1="0" x2="1020" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="1080" y1="0" x2="1080" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="1140" y1="0" x2="1140" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="1200" y1="0" x2="1200" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="1260" y1="0" x2="1260" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="1320" y1="0" x2="1320" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="1380" y1="0" x2="1380" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="1440" y1="0" x2="1440" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="1500" y1="0" x2="1500" y2="500" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="0" y1="0" x2="1500" y2="0" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="0" y1="60" x2="1500" y2="60" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="0" y1="120" x2="1500" y2="120" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="0" y1="180" x2="1500" y2="180" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="0" y1="240" x2="1500" y2="240" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="0" y1="300" x2="1500" y2="300" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="0" y1="360" x2="1500" y2="360" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="0" y1="420" x2="1500" y2="420" stroke="#1A222B" stroke-width="1" opacity=".5"/>
+<line x1="0" y1="480" x2="1500" y2="480" stroke="#1A222B" stroke-width="1" opacity=".5"/></g>
+<rect width="1500" height="500" fill="url(#g1)"/>
+<rect width="1500" height="500" fill="url(#g2)"/>
+<text x="80" y="120" font-family="Consolas, 'Courier New', monospace" font-size="24" font-weight="bold" fill="#3FD68F" letter-spacing="6">MÉTODO DE ENGENHARIA PARA A ERA DOS AGENTES DE IA</text>
+<text x="74" y="280" font-family="Consolas, 'Courier New', monospace" font-size="150" font-weight="bold" fill="#EAF0F6" letter-spacing="-4">RENATO<tspan fill="#3FD68F">.</tspan></text>
+<text x="80" y="360" font-family="'Segoe UI', Arial, sans-serif" font-size="40" font-weight="bold" fill="#EAF0F6">Seu agente de IA escreve rápido. <tspan fill="#3FD68F">O Renato faz ele escrever certo.</tspan></text>
+<g font-family="Consolas, 'Courier New', monospace" font-size="21" font-weight="bold">
+  <rect x="80" y="400" width="286" height="48" rx="24" fill="#0F151B" stroke="#14523C"/>
+  <text x="223" y="431" fill="#3FD68F" text-anchor="middle">test-first obrigatório</text>
+  <rect x="382" y="400" width="280" height="48" rx="24" fill="#0F151B" stroke="#14523C"/>
+  <text x="522" y="431" fill="#3FD68F" text-anchor="middle">0 LLM no roteamento</text>
+  <rect x="678" y="400" width="170" height="48" rx="24" fill="#0F151B" stroke="#14523C"/>
+  <text x="763" y="431" fill="#3FD68F" text-anchor="middle">100% local</text>
+</g>
+<text x="1420" y="431" font-family="Consolas, 'Courier New', monospace" font-size="22" fill="#5C6975" text-anchor="end">erickwilliamdesousa.github.io/renato</text>
+</svg>
