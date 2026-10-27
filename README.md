@@ -8,7 +8,7 @@
 e gates que não aceitam "confia".*
 
 [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-2ea44f)](LICENSE)
-[![Testes](https://img.shields.io/badge/testes-15%20passando-2ea44f)](starter/tests/test_smoke.py)
+[![Testes](https://img.shields.io/badge/testes-72%20passando-2ea44f)](starter/tests)
 [![MCP](https://img.shields.io/badge/protocolo-MCP-blue)](https://modelcontextprotocol.io)
 [![Feito no Brasil](https://img.shields.io/badge/feito%20no-Brasil-ffdf00)](#filosofia)
 
@@ -45,7 +45,7 @@ O trabalho do Renato é empurrar cada regra da casa o mais para a direita possí
 ## Como funciona
 
 O Renato é um cérebro central **local**: um servidor MCP + CLI determinística que se
-conecta ao agente do seu editor (Antigravity, VS Code, Cursor — qualquer um que fale MCP).
+conecta ao agente do seu editor (Claude Code, Antigravity, VS Code, Cursor — qualquer um que fale MCP).
 
 ```mermaid
 flowchart LR
@@ -96,6 +96,21 @@ pagamento, dados) exige torneio de 3 abordagens julgadas.
 | *A nota só sobe com mecanismo, nunca com promessa.* | Selo da Casa (A–F) |
 | *Avaliação, não dogma: se PHP for a melhor saída, PHP vence.* | decisão de stack registrada |
 
+## Novidades — outubro de 2026
+
+Três meses de uso diário viraram mecanismo. O que mudou (detalhes no [CHANGELOG](CHANGELOG.md)):
+
+| O que | Por que importa |
+|---|---|
+| **Gates no Claude Code** — hooks que negam editar código sem abrir a sessão e cobram `task_complete` antes de encerrar | o protocolo deixou de depender de o modelo lembrar dele ([como](docs/CLAUDE_CODE.md); [hooks prontos](starter/hooks/README.md)) |
+| **Lições de servidor MCP stdio** — subprocess sem herdar stdin, teto que mata a árvore, nada de import pesado dentro da chamada | cada regra veio de um travamento real diagnosticado ao vivo ([as sete regras](docs/LICOES_MCP_STDIO.md)) |
+| **Redação de segredo na saída** de toda tool, e memória entregue como `<dados-nao-confiaveis>` | segredo antigo não volta pelo recall; memória envenenada não dá ordem |
+| **Gate de qualidade mensurável** — função com até 100 linhas e complexidade até 14, por AST | "código simples" virou número, sem dependência nova |
+| **Dieta de contexto** — 16 tools por padrão (eram 37), abertura de sessão 57% menor, resumo de sessão com teto | agente mais barato e menos distraído ([números](docs/CONTEXTO.md)) |
+| **Laudo de segurança** com Selo de Fonte (sha256 por arquivo + hash da árvore git), SBOM e varredura do histórico | prova *qual versão* foi auditada |
+
+Tudo que cabe na semente foi para ela, test-first: o starter foi de 15 para **72 testes**.
+
 ## O que está aqui — e o que não está
 
 Este repositório **não é o Renato inteiro**. É o conceito completo + uma semente funcional:
@@ -104,7 +119,7 @@ Este repositório **não é o Renato inteiro**. É o conceito completo + uma sem
 |---|---|
 | O método e os protocolos, na íntegra conceitual | As 1.200+ skills indexadas |
 | A arquitetura e todas as decisões | Os evals e o Selo da Casa de produção |
-| Um starter MCP **funcional** (~300 linhas, testado) | A memória acumulada — o acervo é de quem constrói o seu |
+| Um starter MCP **funcional** (menos de 900 linhas, 72 testes) | A memória acumulada — o acervo é de quem constrói o seu |
 | Os templates de artefatos | Segredos e chaves — **sempre** |
 
 A ideia: você não clona o Renato — você **inicia o seu**. O caminho está mapeado;
@@ -123,7 +138,7 @@ e gera a configuração do Antigravity prontinha) e dar o primeiro comando. ~10 
 git clone https://github.com/ErickWilliamDeSousa/renato.git
 cd renato/starter
 pip install -r requirements.txt
-python -m pytest tests/ -q # a semente nasce verde: 15 testes
+python -m pytest tests/ -q # a semente nasce verde: 72 testes
 python servidor_mcp.py # servidor MCP no ar
 ```
 
@@ -137,6 +152,9 @@ Config por editor, exemplo de sessão e guia de extensão: [manual do starter](s
 | [Manifesto](docs/MANIFESTO.md) | as frases da casa e o mecanismo por trás de cada uma |
 | [Arquitetura](docs/ARQUITETURA.md) | componentes, o fluxo de uma tarefa (9 passos, 6 gates) |
 | [**Deep-dive de engenharia**](docs/ENGENHARIA.md) | **para dev sênior**: RRF, gates puros, decisões e trade-offs, como o starter vira produção |
+| [**Lições de servidor MCP stdio**](docs/LICOES_MCP_STDIO.md) | **novo**: sete regras que custaram incidentes reais — stdin herdado, timeout que não corta, import pesado, segredo na saída |
+| [**Renato no Claude Code**](docs/CLAUDE_CODE.md) | **novo**: do conselho ao bloqueio — escopo de usuário e hooks que negam edição fora do fluxo |
+| [**Contexto é orçamento**](docs/CONTEXTO.md) | **novo**: 16 tools em vez de 37, abertura 57% menor, SESSION_BRIEF de 2.000 caracteres, modos persistentes |
 | [Roteamento](docs/ROTEAMENTO.md) | por que zero LLM no caminho crítico |
 | [Memória](docs/MEMORIA.md) | recall híbrido (FTS5 + embeddings + RRF), colheita, honestidade sobre dados |
 | [Artefatos](docs/ARTEFATOS.md) | a papelada que trabalha: GSD, recibo, evals, selo |

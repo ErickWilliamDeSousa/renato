@@ -1,13 +1,16 @@
 # Arquitetura — ele não escreve código: injeta contexto e cobra método
 
 O Renato é um **cérebro central externo, IDE-first**: um servidor MCP + CLI
-determinística (Python) que se conecta ao agente do seu editor (Antigravity, VS Code,
-Cursor). A identidade, os checkpoints e os gates chegam **dentro da conversa do
-agente** — não dependem de ele abrir arquivo nenhum.
+determinística (Python) que se conecta ao agente do seu editor (Claude Code,
+Antigravity, VS Code, Cursor). A identidade, os checkpoints e os gates chegam
+**dentro da conversa do agente** — não dependem de ele abrir arquivo nenhum.
+Onde o editor tem hooks (Claude Code), o fluxo também é **imposto por fora**:
+editar código sem abrir a sessão é negado antes de acontecer.
 
 ```mermaid
 flowchart LR
-    A["AGENTE DO IDE<br/><small>Antigravity · VS Code · Cursor<br/>quem escreve o código</small>"] <-->|MCP| B["SERVIDOR RENATO<br/><small>identidade · checkpoints · gates<br/>injetados no agente — 100% LOCAL</small>"]
+    A["AGENTE DO IDE<br/><small>Claude Code · Antigravity · VS Code · Cursor<br/>quem escreve o código</small>"] <-->|MCP| B["SERVIDOR RENATO<br/><small>identidade · checkpoints · gates<br/>injetados no agente — 100% LOCAL</small>"]
+    H["HOOKS DO EDITOR<br/><small>negam edição fora do fluxo</small>"] -.-> A
     B --> C["SEU PROJETO<br/><small>artefatos .renatao/<br/>código com trilha auditável</small>"]
 ```
 
@@ -45,9 +48,18 @@ obedecer é o caminho fácil.**
 
 ## E o sistema se cuida
 
-- **720+ testes** sobre o próprio Renato e **21 evals-canário** ponta a ponta —
-  inclusive governança: se uma regra sumir de um ponto de injeção, o sistema acusa sozinho.
-- **Backup do cérebro** com verificação de integridade e rotação; sandbox de shell;
-  detector de vazamento de segredos; teto diário de custo em chamadas pagas.
+- **1.500+ testes** sobre o próprio Renato (1.509 na última suíte completa) e
+  **evals-canário** ponta a ponta — inclusive governança: se uma regra sumir de
+  um ponto de injeção, o sistema acusa sozinho.
+- **Auditorias gerais periódicas** do servidor, com achados priorizados (P0 a P3)
+  e corrigidos test-first. A de outubro de 2026 originou as
+  [lições de servidor MCP stdio](LICOES_MCP_STDIO.md).
+- **Backup do cérebro** com verificação de integridade, rotação e espelho em
+  segundo disco; pré-checagem de comandos shell; redação de segredos na entrada
+  **e na saída**; teto diário de custo em chamadas pagas.
+- **Gate de qualidade mensurável**: função com até 100 linhas e complexidade
+  ciclomática até 14, medidas por AST — sem dependência nova.
+- **Código morto arquivado, não apagado**: fora da árvore, com instrução de
+  restauração. Menos superfície, nenhuma perda.
 - **Manutenção mensal automática**: self-test profundo, evals, auditoria de
   dependências, varredura de produção e colheita de memória — sem depender de alguém lembrar.

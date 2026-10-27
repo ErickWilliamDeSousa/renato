@@ -7,9 +7,10 @@ boa vontade e gates que não aceitam "confia". Velocidade sem método é protót
 disfarçado de produto.
 
 ### "Funciona com qual IDE?"
-Qualquer um que fale **MCP** — Antigravity, VS Code, Cursor. Identidade, memórias e
-gates chegam dentro da conversa do agente; a CLI determinística cobre o resto, e
-humanos também podem usá-la direto.
+Qualquer um que fale **MCP** — Claude Code, Antigravity, VS Code, Cursor. Identidade,
+memórias e gates chegam dentro da conversa do agente; a CLI determinística cobre o
+resto, e humanos também podem usá-la direto. No Claude Code vai além: hooks **negam**
+editar código fora do fluxo ([como](CLAUDE_CODE.md)).
 
 ### "Quanto custa rodar?"
 O caminho crítico é local e de **custo zero**: roteamento sem LLM, memória em

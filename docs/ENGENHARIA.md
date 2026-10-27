@@ -120,6 +120,13 @@ evolução — cada degrau é mecanismo, não conselho:
 5. **Selo A–F** — determinístico, série temporal (a direção > a foto).
 6. **Skills sob demanda** — acervo indexado por relevância.
 
+O que **já subiu** da produção para a semente, em outubro de 2026: a fronteira
+blindada do servidor (`protecao.py`: redação na saída, memória como dado,
+subprocess seguro — ver [Lições de servidor MCP stdio](LICOES_MCP_STDIO.md)), o
+gate de qualidade por AST (`qualidade.py`) e o gate de protocolo para o Claude
+Code (`hooks/`). Critério para subir: é método, cabe em poucas centenas de linhas
+e nasce com teste.
+
 Não migra para o público, por decisão: skills de produção, acervo de memória,
 evals internos, segredos. Método aberto; a casa é da casa.
 
