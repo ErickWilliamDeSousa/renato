@@ -1,24 +1,56 @@
 """Servidor MCP mínimo — a semente do seu próprio Renato.
 
-Cinco ferramentas que demonstram o coração do método:
+Seis ferramentas que demonstram o coração do método:
 
   verificar → prova de vida: confere módulos, memória e determinismo
   session_start → injeta identidade + memórias na conversa do agente
   iniciar_tarefa → roteia a tarefa (determinístico) e cobra o pacote de método
   memoria_gravar → grava no acervo local (com leak-scan na ingestão)
+  qualidade → GATE: função com até 100 linhas e complexidade até 14, por AST
   task_complete → GATE: recusa "pronto" sem evidência real, e colhe a lição
+
+Toda saída passa pelo redator de segredos antes de voltar ao modelo, e
+memória entra delimitada como dado não confiável (ver protecao.py).
 
 Rodar: python servidor_mcp.py (transporte stdio — é o que o IDE espera)
 """
 from __future__ import annotations
 
+import functools
+from pathlib import Path
+
 from mcp.server.fastmcp import FastMCP
 
 import gates
 import memoria
+import protecao
+import qualidade as gate_qualidade
 import roteador
 
 mcp = FastMCP("renato-starter")
+
+
+def blindar(fn):
+    """Toda saída de tool passa pelo redator — inclusive a de erro.
+
+    Centralizar é a decisão: quem escrever a próxima tool não precisa lembrar
+    de redigir. Exceção vira texto "ERRO: ..." redigido: o erro é reportado
+    (nunca suprimido), mas a mensagem não carrega segredo para o modelo e o
+    servidor segue respondendo.
+    """
+    @functools.wraps(fn)
+    def embrulhada(*args, **kwargs):
+        try:
+            texto = fn(*args, **kwargs)
+        except Exception as exc:
+            texto = f"ERRO na ferramenta {fn.__name__}: {type(exc).__name__}: {exc}"
+        return protecao.redigir_saida(texto)[0]
+    return embrulhada
+
+
+def ferramenta(fn):
+    """Registra a tool no MCP já blindada."""
+    return mcp.tool()(blindar(fn))
 
 IDENTIDADE = """\
 Você está operando sob o método da casa. Regras que não são sugestões:
@@ -63,25 +95,31 @@ def diagnostico() -> str:
     )
 
 
-@mcp.tool()
+@ferramenta
 def verificar() -> str:
     """Prova de vida da instalação: módulos, roteador, gate e memória."""
     return diagnostico()
 
 
-@mcp.tool()
-def session_start(tema: str = "") -> str:
-    """Inicia a sessão: identidade da casa + memórias relevantes ao tema."""
+def montar_sessao(tema: str = "", db_path=None) -> str:
+    """Lógica pura do `session_start`: identidade + memórias como DADO."""
     partes = [IDENTIDADE]
     if tema:
-        lembradas = memoria.recall(tema)
+        lembradas = memoria.recall(tema, db_path=db_path)
         if lembradas:
+            itens = "\n".join(f"- [{m['topico']}] {m['conteudo']}" for m in lembradas)
             partes.append("Memórias relevantes de sessões anteriores:")
-            partes += [f"- [{m['topico']}] {m['conteudo']}" for m in lembradas]
+            partes.append(protecao.nao_confiavel("memorias", itens))
     return "\n".join(partes)
 
 
-@mcp.tool()
+@ferramenta
+def session_start(tema: str = "") -> str:
+    """Inicia a sessão: identidade da casa + memórias relevantes ao tema."""
+    return montar_sessao(tema)
+
+
+@ferramenta
 def iniciar_tarefa(descricao: str) -> str:
     """Classifica a tarefa (função pura, zero LLM) e devolve o método cobrado."""
     rota = roteador.rotear(descricao)
@@ -93,7 +131,7 @@ def iniciar_tarefa(descricao: str) -> str:
     return "\n".join(linhas)
 
 
-@mcp.tool()
+@ferramenta
 def memoria_gravar(topico: str, conteudo: str) -> str:
     """Grava uma decisão ou lição no acervo local (leak-scan roda antes)."""
     resultado = memoria.gravar(topico, conteudo)
@@ -103,7 +141,24 @@ def memoria_gravar(topico: str, conteudo: str) -> str:
     return f"Memória gravada.{aviso}"
 
 
-@mcp.tool()
+@ferramenta
+def qualidade(projeto: str, arquivos: str = "") -> str:
+    """GATE de qualidade: funções com até 100 linhas e complexidade até 14 (AST).
+
+    Sem `arquivos`, mede os .py alterados no git do `projeto`. Com `arquivos`,
+    mede a lista separada por vírgula, relativa ao projeto (fora dele: recusado).
+    """
+    if arquivos.strip():
+        alvos, recusados = gate_qualidade.resolver_alvos(projeto, arquivos)
+    else:
+        alvos, recusados = gate_qualidade.arquivos_alterados(projeto), []
+    texto = gate_qualidade.relatorio(gate_qualidade.analisar(alvos))
+    if recusados:
+        texto += "\nRecusados (fora do projeto): " + ", ".join(recusados)
+    return texto
+
+
+@ferramenta
 def task_complete(resumo: str, evidencia: str) -> str:
     """GATE de conclusão: sem evidência real, não existe 'pronto'."""
     recusa = gates.validar_evidencia(evidencia)

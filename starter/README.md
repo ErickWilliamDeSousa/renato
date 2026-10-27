@@ -59,7 +59,7 @@ O Python é o motor que roda o Renato. Instalar é como qualquer programa:
    (o arquivo é texto aberto — você pode ler tudo que ele faz)
 4. Uma janela preta vai trabalhar por 1–2 minutos
 
-O instalador faz 3 coisas sozinho: instala as bibliotecas, roda os **15 testes**
+O instalador faz 3 coisas sozinho: instala as bibliotecas, roda os **72 testes**
 de saúde, e **gera a configuração do Antigravity já com os caminhos certos do
 SEU computador** — copiada para o Ctrl+V e aberta no Bloco de Notas.
 
@@ -83,8 +83,8 @@ com um texto começando em `"mcpServers"`.
 
 ![Print — o painel MCP do Antigravity com o renato-starter conectado](../docs/img/passo4_antigravity.png)
 
-**Deu certo se:** aparece **`renato-starter`** na lista, com **5 ferramentas**:
-`verificar`, `session_start`, `iniciar_tarefa`, `memoria_gravar`, `task_complete`.
+**Deu certo se:** aparece **`renato-starter`** na lista, com **6 ferramentas**:
+`verificar`, `session_start`, `iniciar_tarefa`, `memoria_gravar`, `qualidade`, `task_complete`.
 
 ## Passo 5 — O primeiro comando (a prova final)
 
@@ -138,9 +138,9 @@ com uma foto da tela do `DIAGNOSTICO.bat` — sem vergonha, o repositório exist
 ## Para quem é técnico
 
 > **Atalho dev:** `git clone` → `cd renato/starter` → `pip install -r requirements.txt`
-> → `pytest -q` (15 verdes) → aponte seu cliente MCP para `python servidor_mcp.py`.
-> A tabela `DOMINIOS`/`PACOTES`, os gates puros e o leak-scan estão em ~300 linhas
-> legíveis — leia antes de estender.
+> → `pytest -q` (72 verdes) → aponte seu cliente MCP para `python servidor_mcp.py`.
+> A tabela `DOMINIOS`/`PACOTES`, os gates puros, o leak-scan e as proteções da
+> fronteira MCP estão em menos de 900 linhas legíveis — leia antes de estender.
 >
 > Quer o desenho completo (RRF, decisões de engenharia, como o starter vira
 > produção)? **[Deep-dive de engenharia](../docs/ENGENHARIA.md)**.
@@ -149,19 +149,24 @@ com uma foto da tela do `DIAGNOSTICO.bat` — sem vergonha, o repositório exist
 
 | Arquivo | Conceito que demonstra |
 |---|---|
-| `servidor_mcp.py` | identidade injetada na conversa + as 5 ferramentas (inclui `verificar`, a prova de vida) |
+| `servidor_mcp.py` | identidade injetada na conversa + as 6 ferramentas, todas blindadas pelo decorador `blindar` (redação de segredo na saída, erro reportado sem vazar) |
 | `roteador.py` | classificação determinística — zero LLM no caminho crítico |
 | `memoria.py` | acervo local SQLite/FTS5 + leak-scan na ingestão (`[REDACTED]` antes do disco) |
 | `gates.py` | gates como funções puras — recusa recibo em branco |
+| `protecao.py` | a fronteira do servidor stdio: redação na saída, memória como `<dados-nao-confiaveis>`, subprocess sem herdar stdin e com teto que mata a árvore ([por quê](../docs/LICOES_MCP_STDIO.md)) |
+| `qualidade.py` | gate mensurável por AST: função com até 100 linhas e complexidade até 14; sem argumentos, mede só o que mudou no git |
+| `hooks/` | gate para o Claude Code: nega edição de código fora do fluxo e cobra `task_complete` ([manual](hooks/README.md)) |
 | `instalar.py` / `INSTALAR.bat` | onboarding de 1 clique: deps + testes + config gerada por máquina |
 | `templates/` | os artefatos: GSD, plano de teste, recibo, AGENTS.md |
-| `tests/test_smoke.py` | o método aplicado a si mesmo: nasceu test-first (15 testes) |
+| `tests/` | o método aplicado a si mesmo: tudo nasceu test-first (72 testes, incluindo o neto que segura o pipe e o nome de arquivo com acento) |
 
 ### Outros editores (mesmo padrão: comando + args via stdio)
 
 O `config_antigravity.json` gerado serve de base — o formato muda pouco:
 
-- **Claude Code:** `claude mcp add renato-starter -- python C:/renato-main/starter/servidor_mcp.py`
+- **Claude Code:** `claude mcp add --scope user renato-starter -- python C:/renato-main/starter/servidor_mcp.py`
+  (escopo de usuário: vale em todo projeto). Para transformar o protocolo em
+  bloqueio, instale os [hooks](hooks/README.md).
 - **Cursor:** cole o mesmo JSON em `~/.cursor/mcp.json`
 - **VS Code:** em `.vscode/mcp.json`, troque `"mcpServers"` por `"servers"` e
   adicione `"type": "stdio"` no servidor
@@ -178,12 +183,15 @@ antes do "pronto", `AGENTS.md` na raiz do repo.
 - **Nova regra de identidade**: `IDENTIDADE` em `servidor_mcp.py` — verbo e consequência, não conselho
 - **Novo padrão de segredo**: regex em `PADROES_SEGREDO` (`memoria.py`) + teste provando a redação
 - **Novo gate**: função pura em `gates.py` + wrapper de uma linha no servidor
+- **Nova tool**: registre com `@ferramenta`, nunca `@mcp.tool()` direto — é o que garante a redação na saída
+- **Precisa rodar um comando?** `protecao.rodar([...], teto_s=...)`, nunca `subprocess` cru dentro de uma tool
 
 ### O caminho de evolução (na ordem que compensa)
 
 1. **Colheita automática** — extrair decisões estruturadas de cada `task_complete`
 2. **Evals por projeto** — casos `comando → saída esperada` que bloqueiam deploy
 3. **Checkpoints como gates** — pre-code, pre-test, pre-commit recusando etapa pulada
+   (no Claude Code, os [hooks](hooks/README.md) já dão o primeiro degrau disso)
 4. **Recall semântico** — embeddings + fusão RRF sobre o FTS5 ([como funciona](../docs/ENGENHARIA.md#5-memória-leak-scan-na-ingestão--recall-híbrido))
 5. **Selo do projeto** — nota A–F determinística, medida no tempo
 

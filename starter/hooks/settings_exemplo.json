@@ -1,0 +1,33 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [{ "type": "command", "command": "python C:/renato-main/starter/hooks/gate_claude.py precode-gate", "timeout": 10 }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [{ "type": "command", "command": "python C:/renato-main/starter/hooks/gate_claude.py edit-mark", "timeout": 10 }]
+      },
+      {
+        "matcher": "mcp__renato-starter__session_start",
+        "hooks": [{ "type": "command", "command": "python C:/renato-main/starter/hooks/gate_claude.py session-mark", "timeout": 10 }]
+      },
+      {
+        "matcher": "mcp__renato-starter__iniciar_tarefa",
+        "hooks": [{ "type": "command", "command": "python C:/renato-main/starter/hooks/gate_claude.py rota-mark", "timeout": 10 }]
+      },
+      {
+        "matcher": "mcp__renato-starter__task_complete",
+        "hooks": [{ "type": "command", "command": "python C:/renato-main/starter/hooks/gate_claude.py complete-mark", "timeout": 10 }]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [{ "type": "command", "command": "python C:/renato-main/starter/hooks/gate_claude.py stop-gate", "timeout": 10 }]
+      }
+    ]
+  }
+}

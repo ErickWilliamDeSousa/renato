@@ -34,3 +34,11 @@ GUIA_SEGURANCA.pdf
 
 # scripts locais de setup (fora do conteudo)
 set_topics.py
+
+# helpers locais de publicacao (usam token do .env)
+novo_repo.py
+finaliza_repo.py
+push_forca.py
+
+# artefatos locais do protocolo e markers dos hooks
+.renatao/
